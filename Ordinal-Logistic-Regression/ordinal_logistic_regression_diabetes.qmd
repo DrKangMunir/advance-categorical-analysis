@@ -1,7 +1,7 @@
 ---
 title: "Ordinal Logistic Regression: Diabetes Health Status"
 subtitle: "Analysis of CDC BRFSS 2015 Health Indicators Dataset"
-author: "DrPH Student"
+author: "Dr Munir"
 date: today
 format:
   html:

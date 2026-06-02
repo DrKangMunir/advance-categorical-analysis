@@ -7,7 +7,7 @@
 ![GitHub stars](https://img.shields.io/github/stars/DrKangMunir/advance-categorical-analysis?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/DrKangMunir/advance-categorical-analysis?style=social)
 
-Reproducible **ordinal logistic regression** analysis using CDC BRFSS 2015 survey data for the Advanced Categorical Data Analysis course (DrPH, Universiti Sains Malaysia).
+Reproducible **multinomial** and **ordinal logistic regression** analyses for the Advanced Categorical Data Analysis course (DrPH, Universiti Sains Malaysia).
 
 ---
 
@@ -32,10 +32,14 @@ Reproducible **ordinal logistic regression** analysis using CDC BRFSS 2015 surve
 
 ## Overview
 
-- Examines sociodemographic, behavioural, and clinical factors associated with **diabetes severity** (No Diabetes → Pre-Diabetes → Diabetes) using the **proportional odds model** (ordinal logistic regression) on a stratified sample from the CDC BRFSS 2015 dataset (n = 2,200).
-- Uses **R**, **Quarto**, and **tidyverse-based workflows** to demonstrate data preparation, exploratory data analysis, model building, assumption testing, model fit evaluation, interaction analysis, and prediction.
-- The proportional odds model (`ordinal::clm`) is applied following the framework of Hosmer, Lemeshow & Sturdivant (*Applied Logistic Regression*, 3rd ed., Chapter 8).
-- Status: Individual assignment submission for GDT600 Advanced Categorical Data Analysis.
+This repository contains two individual assignment submissions for GDT600 Advanced Categorical Data Analysis:
+
+| # | Analysis | Dataset | Method |
+|---|----------|---------|--------|
+| 1 | Contraceptive method choice | 1987 National Indonesia Contraceptive Prevalence Survey (n = 1,473) | Multinomial logistic regression (`VGAM::vglm`) |
+| 2 | Diabetes severity | CDC BRFSS 2015 — stratified sample (n = 2,200) | Ordinal logistic regression / proportional odds model (`ordinal::clm`) |
+
+Both analyses use **R**, **Quarto**, and **tidyverse-based workflows** covering data preparation, exploratory data analysis, model building, diagnostics, model fit evaluation, and prediction.
 
 ---
 
@@ -49,19 +53,29 @@ Reproducible **ordinal logistic regression** analysis using CDC BRFSS 2015 surve
 
 ## Folder Structure
 
-Layout within this repository:
-
 ```
-├── ordinal_logistic_regression_diabetes.qmd
-├── ordinal_logistic_regression_diabetes.html
-├── diabetes_sample_2200.csv
+├── Multinomial-Logistic-Regression/
+│   ├── cmc_multinomial_analysis.qmd
+│   ├── cmc_multinomial_analysis.html
+│   └── cmc.csv
+├── Ordinal-Logistic-Regression/
+│   ├── ordinal_logistic_regression_diabetes.qmd
+│   ├── ordinal_logistic_regression_diabetes.html
+│   └── diabetes_sample_2200.csv
 └── README.md
 ```
 
-- `ordinal_logistic_regression_diabetes.qmd` – fully reproducible Quarto source document
-- `ordinal_logistic_regression_diabetes.html` – rendered HTML report (self-contained, no internet required)
-- `diabetes_sample_2200.csv` – stratified random sample dataset (n = 2,200)
-- `README.md` – this overview file
+- **`Multinomial-Logistic-Regression/`** — multinomial logistic regression on contraceptive method choice
+  - `cmc_multinomial_analysis.qmd` — Quarto source (fully reproducible)
+  - `cmc_multinomial_analysis.html` — rendered HTML report
+  - `cmc.csv` — 1987 Indonesia Contraceptive Prevalence Survey data (n = 1,473)
+
+- **`Ordinal-Logistic-Regression/`** — proportional odds model on diabetes severity
+  - `ordinal_logistic_regression_diabetes.qmd` — Quarto source (fully reproducible)
+  - `ordinal_logistic_regression_diabetes.html` — rendered HTML report
+  - `diabetes_sample_2200.csv` — stratified sample from CDC BRFSS 2015 (n = 2,200)
+
+- `README.md` — this overview file
 
 ---
 
@@ -71,19 +85,19 @@ Layout within this repository:
 
 - R (≥ 4.0.0) and [Positron](https://positron.posit.co/) (recommended IDE)
 - Quarto (≥ 1.4)
-- Required R packages:
 
-  `tidyverse`, `ordinal`, `gtsummary`, `broom`,
-  `knitr`, `kableExtra`, `car`
+### Required R Packages
 
-### Setup
+**Multinomial Logistic Regression:**
 
-```bash
-git clone https://github.com/DrKangMunir/advance-categorical-analysis.git
-cd advance-categorical-analysis
+```r
+install.packages(c(
+  "tidyverse", "gtsummary", "VGAM", "nnet",
+  "knitr", "kableExtra", "here"
+))
 ```
 
-Then in R:
+**Ordinal Logistic Regression:**
 
 ```r
 install.packages(c(
@@ -92,146 +106,136 @@ install.packages(c(
 ))
 ```
 
+### Setup
+
+```bash
+git clone https://github.com/DrKangMunir/advance-categorical-analysis.git
+cd advance-categorical-analysis
+```
+
 ---
 
 ## Usage
 
-From the repository root:
+### 1. Multinomial Logistic Regression
 
 ```bash
-# Quarto
+cd Multinomial-Logistic-Regression
+quarto render cmc_multinomial_analysis.qmd
+```
+
+### 2. Ordinal Logistic Regression
+
+```bash
+cd Ordinal-Logistic-Regression
 quarto render ordinal_logistic_regression_diabetes.qmd
 ```
 
-This generates `ordinal_logistic_regression_diabetes.html` with the full analysis — data preparation, EDA, model building, diagnostics, assumption testing, model fit, interaction analysis, prediction, and discussion.
-
-Alternatively, open the `.qmd` file in **Positron** and click **Render**.
+Alternatively, open either `.qmd` file in **Positron** and click **Render**.
 
 ---
 
 ## Data
 
-### CDC BRFSS 2015 — Stratified Sample
+### 1. 1987 National Indonesia Contraceptive Prevalence Survey
 
-- **Source:** `diabetes_sample_2200.csv` (stratified random sample from the full CDC BRFSS 2015 dataset, n = 253,680)
-- **Sample size:** n = 2,200
-- **Stratification on `Diabetes_012`:**
+- **File:** `Multinomial-Logistic-Regression/cmc.csv`
+- **Source:** UCI Machine Learning Repository (DOI: [10.24432/C5C59T](https://archive.ics.uci.edu/ml/datasets/Contraceptive+Method+Choice))
+- **Sample size:** n = 1,473 married non-pregnant women
 
-| Category     | n     | % in sample | Population prevalence |
-|--------------|-------|-------------|-----------------------|
-| No Diabetes  | 1,600 | 72.7%       | ~86%                  |
-| Pre-Diabetes | 150   | 6.8%        | ~1.8% (oversampled)   |
-| Diabetes     | 450   | 20.5%       | ~12%                  |
+| Variable | Type | Description |
+|----------|------|-------------|
+| `contraceptive_method` | Nominal (1/2/3) | Outcome: No use / Long-term / Short-term |
+| `wife_age` | Continuous | Wife's age in years |
+| `wife_edu` | Ordinal (1–4) | Wife's education level |
+| `husb_edu` | Ordinal (1–4) | Husband's education level |
+| `num_children` | Continuous | Number of children ever born |
+| `wife_religion` | Binary | Religion: 0 = Non-Islam, 1 = Islam |
+| `wife_working` | Binary | Working status: 0 = Yes, 1 = No |
+| `husb_occupation` | Nominal (1–4) | Husband's occupation |
+| `sol_index` | Ordinal (1–4) | Standard of living index |
+| `media_exposure` | Binary | Media exposure: 0 = Good, 1 = Not good |
 
-Pre-Diabetes was deliberately oversampled to ensure stable coefficient estimation (proportional sampling would yield fewer than 40 cases). ORs reflect sample-level associations and cannot be used to derive population prevalence.
+### 2. CDC BRFSS 2015 — Stratified Sample
 
-### Key Variables
+- **File:** `Ordinal-Logistic-Regression/diabetes_sample_2200.csv`
+- **Source:** CDC BRFSS 2015 / UCI ML Repository (DOI: [10.24432/C53919](https://doi.org/10.24432/C53919))
+- **Sample size:** n = 2,200 (stratified; Pre-Diabetes oversampled)
 
-| Variable              | Type        | Description                                         |
-|-----------------------|-------------|-----------------------------------------------------|
-| `Diabetes_012`        | Ordered (0/1/2) | Outcome: No Diabetes / Pre-Diabetes / Diabetes  |
-| `HighBP`              | Binary      | High blood pressure diagnosis                       |
-| `HighChol`            | Binary      | High cholesterol diagnosis                          |
-| `BMI`                 | Continuous  | Body mass index                                     |
-| `Smoker`              | Binary      | Ever smoked ≥ 100 cigarettes lifetime               |
-| `PhysActivity`        | Binary      | Physical activity in the past 30 days               |
-| `GenHlth`             | Ordered (1–5) | Self-rated general health (Excellent → Poor)      |
-| `Sex`                 | Binary      | Biological sex (Female / Male)                      |
-| `Age`                 | Categorical | Age group (collapsed into 6 bands: 18–34 to 75+)   |
+| Category | n | % in sample |
+|----------|---|-------------|
+| No Diabetes | 1,600 | 72.7% |
+| Pre-Diabetes | 150 | 6.8% (oversampled) |
+| Diabetes | 450 | 20.5% |
 
-Full data documentation is available in the original CDC BRFSS 2015 codebook and the UCI Machine Learning Repository (DOI: [10.24432/C53919](https://doi.org/10.24432/C53919)).
+Key predictors: `HighBP`, `HighChol`, `BMI`, `Smoker`, `PhysActivity`, `GenHlth`, `Sex`, `Age`
 
 ---
 
 ## List of Analyses
 
-### Ordinal Logistic Regression — Diabetes Health Status
+### Analysis 1 — Multinomial Logistic Regression: Contraceptive Method Choice
 
-- **Data Preparation**
-  - Stratified sampling rationale and sample description
-  - Variable recoding: binary factors, ordered outcome (`diabetes_cat`), collapsed age bands, GenHlth and Income factor levels
-  - Ordering verification: No Diabetes < Pre-Diabetes < Diabetes
+- **Data preparation** — variable recoding, factor labelling, dichotomisation of education and standard of living, reference category assignment for `VGAM` and `nnet`
+- **Exploratory data analysis** — descriptive statistics by contraceptive method (Table 2)
+- **Unadjusted models** — simple multinomial models for wife's religion (Model 1) and wife's education (Model 2) with RRRs and 95% CIs
+- **Adjusted models** — full model (Model 3, four-level factors) and final parsimonious model (Model 4, dichotomised predictors)
+- **Model fit** — global LRT against null, McFadden R²
+- **Estimation** — adjusted RRRs, log-odds, and 95% CIs for both comparisons (long-term vs no-use; short-term vs no-use)
+- **Prediction** — predicted log-odds and probabilities, manual derivation using the multinomial probability formula, verified against `predict.vgam()`
+- **Cross-validation** — coefficient comparison between `VGAM::vglm` and `nnet::multinom`
+- **Discussion & limitations** — interpretation of education, parity, religion, age, SoL, and media effects
 
-- **Exploratory Data Analysis**
-  - Outcome distribution (bar chart with counts and proportions)
-  - Descriptive statistics by diabetes status (Table 1) — means/SDs for continuous, n/% for categorical
+### Analysis 2 — Ordinal Logistic Regression: Diabetes Severity
 
-- **Univariable Screening**
-  - Separate proportional odds models for all 19 candidate predictors
-  - Hosmer-Lemeshow criterion (p < 0.25) for multivariable entry
-  - Unadjusted ORs with 95% CIs (Table 2)
-
-- **Full Adjusted Model**
-  - Proportional odds model (`ordinal::clm`, logit link) with 8 predictors: HighBP, HighChol, BMI, Smoker, PhysActivity, GenHlth, Sex, Age
-  - Threshold parameters (α₁, α₂) and regression coefficients (β)
-
-- **Model Diagnostics**
-  - Multicollinearity: GVIF via proxy linear model (`car::vif`)
-  - BMI linearity: Pearson correlation between BMI quartile midpoints and empirical log-odds at both thresholds
-
-- **Model Results**
-  - Adjusted ORs with 95% CIs and p-values (Table 3)
-  - Threshold coefficients with ordering check (Table 4)
-  - Predictor-by-predictor clinical interpretation
-
-- **Proportional Odds Assumption**
-  - `nominal_test()`: tests whether predictor effects vary across thresholds
-  - `scale_test()`: tests whether latent variance differs across predictor levels
-  - Rationale for not applying the Brant test (sparse middle category, convergence failure)
-
-- **Model Fit**
-  - Global likelihood ratio test (full vs. null)
-  - McFadden and Nagelkerke pseudo R²
-  - Drop-one LRT for variable contribution (Table 5)
-  - AIC/BIC model comparison: Null vs. Reduced vs. Full (Table 6)
-
-- **Interaction Analysis**
-  - A priori HighBP × BMI interaction (shared insulin-resistance pathway)
-  - LRT comparison of main-effects vs. interaction model
-  - OR for interaction term with 95% CI
-
-- **Prediction**
-  - Classification accuracy and confusion matrix (Table 7)
-  - Per-class sensitivity (No Diabetes, Pre-Diabetes, Diabetes)
-  - Fitted probabilities for four illustrative clinical profiles (Table 8)
-  - Manual probability calculation following Hosmer et al. Eq. 8.25, verified against `predict()`
-
-- **Discussion**
-  - Summary of findings, key ORs, dose-response patterns
-  - Limitations: cross-sectional design, self-reported diabetes, oversampled Pre-Diabetes, proportional odds violations, residual confounding
-  - Public health conclusion
+- **Data preparation** — variable recoding, ordered factor verification (No Diabetes < Pre-Diabetes < Diabetes)
+- **Exploratory data analysis** — outcome distribution, descriptive table by diabetes status
+- **Univariable screening** — 19 candidate predictors, Hosmer-Lemeshow p < 0.25 entry criterion
+- **Full adjusted model** — proportional odds model (`ordinal::clm`, logit link), 8 predictors
+- **Diagnostics** — multicollinearity (GVIF), BMI log-linearity check (quartile midpoint correlations)
+- **Model results** — adjusted ORs, threshold coefficients, predictor-by-predictor interpretation
+- **Proportional odds assumption** — `nominal_test()` and `scale_test()` from `ordinal`
+- **Model fit** — global LRT, McFadden and Nagelkerke pseudo R², drop-one LRT, AIC/BIC comparison (null vs reduced vs full)
+- **Interaction analysis** — HighBP × BMI (shared insulin-resistance pathway), LRT test
+- **Prediction** — classification accuracy, confusion matrix, fitted probabilities for four clinical profiles, manual calculation verified against `predict()`
+- **Discussion & limitations** — summary of findings, cross-sectional design, oversampled Pre-Diabetes caveat
 
 ---
 
 ## Results
 
-- **Ordinal logistic regression:** Adjusted ORs, proportional odds assumption tests, pseudo R², model comparison, and prediction in `ordinal_logistic_regression_diabetes.html`.
+### Multinomial Logistic Regression
 
-Key findings:
+- Wife's **education** was the strongest predictor of long-term use (RRR = 4.69, high vs low)
+- **Parity** drove contraceptive adoption for both methods equally (RRR ≈ 1.35–1.40 per child)
+- **Religion** (Islam) reduced relative odds for long-term use more than short-term use
+- **Media exposure** was a significant barrier specifically to short-term use
 
-- **BMI** (OR per unit), **high blood pressure**, and **high cholesterol** were the strongest metabolic risk factors for higher diabetes severity.
-- **Physical activity** was the largest modifiable protective factor.
-- A monotone **age gradient** and a dose-response **self-rated health gradient** (Excellent → Poor) were confirmed.
-- The HighBP × BMI interaction was tested; the main-effects or interaction model was selected based on LRT results (see report).
+### Ordinal Logistic Regression
+
+- **BMI**, **high blood pressure**, and **high cholesterol** were the strongest metabolic risk factors
+- **Physical activity** was the largest modifiable protective factor
+- A monotone **age gradient** and dose-response **self-rated health gradient** (Excellent → Poor) were confirmed
+- Full results in `ordinal_logistic_regression_diabetes.html`
 
 ---
 
 ## Disclaimer
 
 - This repository was developed as part of the **GDT600 Advanced Categorical Data Analysis** course, DrPH Programme, Universiti Sains Malaysia.
-- The dataset is a **real public-use dataset** (CDC BRFSS 2015) but represents a stratified sample for educational purposes. ORs are sample-level associations and should not be used to derive population prevalence estimates.
-- Development of code and documentation was supported by **Claude (Anthropic)**, an AI assistant. Claude assisted with structuring code, automating inline interpretations, and refining documentation; however, all analytical choices, interpretations, and conclusions remain the sole responsibility of the author.
-- The materials provided here are intended exclusively for **educational and demonstration purposes**. They should **not** be applied to clinical practice, policy decisions, or real-world patient data analysis without appropriate validation.
+- All datasets are real public-use datasets used strictly for educational purposes. ORs and RRRs reflect sample-level associations and should not be used for clinical or policy decisions.
+- Code and documentation were developed with assistance from **Claude (Anthropic)**, an AI assistant. All analytical choices, interpretations, and conclusions remain the sole responsibility of the author.
+- Materials are intended exclusively for **educational and demonstration purposes**.
 
 ---
 
 ## License
 
-This project is licensed under the **MIT License**.  
-See the `LICENSE` file for full details.
+This project is licensed under the **MIT License**.
 
 ---
 
 ## Version History
 
-- v1.0.0 (2026-06-02): Initial release — ordinal logistic regression analysis of CDC BRFSS 2015 diabetes health indicators.
+- v1.0.0 (2026-06-02): Initial release — ordinal logistic regression (diabetes, CDC BRFSS 2015).
+- v2.0.0 (2026-06-02): Added multinomial logistic regression (contraceptive choice, Indonesia 1987). Repo restructured into two analysis subfolders.
