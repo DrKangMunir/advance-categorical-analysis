@@ -32,7 +32,7 @@ Reproducible **multinomial** and **ordinal logistic regression** analyses for th
 
 ## Overview
 
-This repository contains two individual assignment submissions for GDT600 Advanced Categorical Data Analysis:
+This repository contains two individual assignment submissions for Advanced Categorical Data Analysis:
 
 | # | Analysis | Dataset | Method |
 |---|----------|---------|--------|
