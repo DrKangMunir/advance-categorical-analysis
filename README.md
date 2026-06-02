@@ -3,6 +3,7 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![R ≥ 4.0](https://img.shields.io/badge/R-≥%204.0-blue.svg)
 ![Quarto ≥ 1.4](https://img.shields.io/badge/Quarto-≥%201.4-orange.svg)
+![IDE: Positron](https://img.shields.io/badge/IDE-Positron-blueviolet.svg)
 ![GitHub stars](https://img.shields.io/github/stars/DrKangMunir/advance-categorical-analysis?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/DrKangMunir/advance-categorical-analysis?style=social)
 
@@ -68,7 +69,7 @@ Layout within this repository:
 
 ### Prerequisites
 
-- R (≥ 4.0.0) and RStudio (recommended)
+- R (≥ 4.0.0) and [Positron](https://positron.posit.co/) (recommended IDE)
 - Quarto (≥ 1.4)
 - Required R packages:
 
@@ -104,7 +105,7 @@ quarto render ordinal_logistic_regression_diabetes.qmd
 
 This generates `ordinal_logistic_regression_diabetes.html` with the full analysis — data preparation, EDA, model building, diagnostics, assumption testing, model fit, interaction analysis, prediction, and discussion.
 
-Alternatively, open the `.qmd` file in RStudio and click **Render**.
+Alternatively, open the `.qmd` file in **Positron** and click **Render**.
 
 ---
 
