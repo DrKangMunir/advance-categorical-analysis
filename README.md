@@ -199,29 +199,39 @@ Key predictors: `HighBP`, `HighChol`, `BMI`, `Smoker`, `PhysActivity`, `GenHlth`
 ### Analysis 2 — Ordinal Logistic Regression: Diabetes Severity
 
 - **Data preparation** — variable recoding: binary factors, ordered outcome (`diabetes_cat`), collapsed age bands (13 groups → 6 clinical bands), GenHlth and Income factor levels; ordering verified: No Diabetes < Pre-Diabetes < Diabetes
-- **Exploratory data analysis** — outcome distribution bar chart with counts and proportions; descriptive statistics by diabetes status (Table 1) — means/SDs for continuous, n/% for categorical
-- **Univariable screening** — separate proportional odds models for all 19 candidate predictors; Hosmer-Lemeshow p < 0.25 entry criterion; unadjusted ORs with 95% CIs (Table 2)
-- **Full adjusted model** — proportional odds model (`ordinal::clm`, logit link) with 8 predictors: HighBP, HighChol, BMI, Smoker, PhysActivity, GenHlth, Sex, Age; threshold parameters (α₁, α₂) and regression coefficients (β) described
+- **Exploratory data analysis**
+  - Outcome distribution — bar chart with counts and proportions
+  - Descriptive statistics by diabetes status (Table 1) — means/SDs for continuous, n/% for categorical
+- **Model building**
+  - Univariable screening — separate proportional odds models for all 19 candidate predictors; Hosmer-Lemeshow p < 0.25 entry criterion; unadjusted ORs with 95% CIs (Table 2); screening decision with clinical relevance rationale
+  - Full adjusted model — proportional odds model (`ordinal::clm`, logit link), 8 predictors: HighBP, HighChol, BMI, Smoker, PhysActivity, GenHlth, Sex, Age; threshold parameters (α₁, α₂) and regression coefficients (β) explained
 - **Model diagnostics**
-  - Multicollinearity: GVIF via proxy linear model (`car::vif()`); all GVIF^(1/(2·Df)) values interpreted against 2.0 threshold
-  - BMI linearity: Pearson correlation between BMI quartile midpoints and empirical log-odds at both cumulative thresholds (≥ Pre-Diabetes, ≥ Diabetes)
-- **Model results** — adjusted ORs, 95% CIs, and p-values (Table 3); threshold coefficients with ordering check (Table 4); predictor-by-predictor clinical interpretation for all 11 terms including GenHlth dose-response gradient and age monotone pattern
+  - Multicollinearity: GVIF via proxy linear model (`car::vif()`); GVIF^(1/(2·Df)) interpreted against 2.0 threshold
+  - BMI linearity: Pearson correlation between BMI quartile midpoints and empirical log-odds at both cumulative thresholds (≥ Pre-Diabetes, ≥ Diabetes); plot of log-odds vs quartile midpoint
+- **Model results**
+  - Adjusted ORs with 95% CIs and p-values (Table 3)
+  - Threshold coefficients with ordering check (α₁ < α₂ confirmed) (Table 4)
 - **Proportional odds assumption**
-  - `nominal_test()`: tests whether predictor effects vary across thresholds (violation = different ORs at each cut-point)
-  - `scale_test()`: tests whether latent variance differs across predictor levels (heteroscedasticity on latent scale)
-  - Rationale provided for not applying the Brant test (sparse Pre-Diabetes category, convergence failure with multi-level predictors)
+  - `nominal_test()` — tests whether each predictor's effect varies across thresholds; significant p < 0.05 = violation
+  - `scale_test()` — tests whether latent variance differs across predictor levels
+  - Rationale for not applying the Brant test: sparse Pre-Diabetes category (n = 150), convergence failure with multi-level predictors
 - **Model fit**
-  - Global LRT: full vs null model (χ², df, p-value)
-  - McFadden and Nagelkerke pseudo R²
-  - Drop-one LRT: individual variable contribution ranked by LRT statistic
-  - AIC/BIC model comparison: Null vs Reduced (−Smoker, −PhysActivity) vs Full (Table 5)
-- **Interaction analysis** — a priori HighBP × BMI interaction (shared insulin-resistance pathway); LRT comparison of main-effects vs interaction model; interaction OR with 95% CI; model selection decision reported
+  - Global LRT — full vs null model (χ², df, p-value)
+  - Pseudo R² — McFadden and Nagelkerke
+  - Variable contribution — drop-one LRT; top 3 contributors ranked by LRT statistic
+- **Interaction analysis** — a priori HighBP × BMI interaction (shared insulin-resistance pathway); LRT comparison of main-effects vs interaction model; interaction OR with 95% CI; model selection decision
+- **Model comparison** — AIC and BIC across Null, Reduced (−Smoker, −PhysActivity), and Full models (Table 5); LRT for Smoker + PhysActivity joint contribution
+- **Interpretation of results**
+  - Proportional odds interpretation framework — single OR constant across both cut-points explained
+  - Summary table — adjusted ORs with direction and significance flag (Table 6)
+  - Predictor-by-predictor interpretation — all 11 terms: HighBP, HighChol, BMI (5-unit compounding), Smoker, PhysActivity (largest modifiable effect), GenHlth dose-response gradient (Very Good → Good → Fair → Poor), Sex, Age (monotone gradient to 75+)
 - **Prediction**
-  - Overall classification accuracy and per-class sensitivity (No Diabetes, Pre-Diabetes, Diabetes)
+  - Classification accuracy — overall accuracy and per-class sensitivity (No Diabetes, Pre-Diabetes, Diabetes)
   - Confusion matrix (Table 7)
   - Fitted probabilities for four illustrative clinical profiles varying BMI, HighBP, Age, and GenHlth (Table 8)
-  - Manual probability calculation following Hosmer et al. Eq. 8.25 — cumulative probabilities via logistic formula then differenced into category probabilities; verified against `predict()` to within rounding error
-- **Discussion & limitations** — summary of key ORs, BMI compounding effect (5-unit increase), physical activity as most actionable predictor, self-rated health dose-response, age gradient; limitations: cross-sectional design, self-reported diabetes status, oversampled Pre-Diabetes (ORs are sample-level only), proportional odds violations for flagged predictors, residual confounding
+  - Manual calculation — Hosmer et al. Eq. 8.25: cumulative probabilities P(Y ≤ j) via logistic formula, then differenced into category probabilities; verified against `predict()` to within rounding error
+- **Discussion** — summary of findings; BMI compounding effect; physical activity as most actionable predictor; self-rated health dose-response; age gradient
+- **Limitations** — cross-sectional design; self-reported diabetes status; oversampled Pre-Diabetes (ORs are sample-level only, population prevalence not derivable); proportional odds violations for flagged predictors; residual confounding
 
 ---
 
@@ -263,4 +273,4 @@ This project is licensed under the **MIT License**.
 - v1.0.0 (2026-06-02): Initial release — ordinal logistic regression (diabetes, CDC BRFSS 2015).
 - v2.0.0 (2026-06-02): Added multinomial logistic regression (contraceptive choice, Indonesia 1987). Repo restructured into two analysis subfolders.
 - v2.1.0 (2026-06-02): Updated multinomial analysis — added model diagnostics (GVIF), interaction analysis (Religion × Education), model comparison (AIC/BIC), and final-model predicted probability profiles.
-- v2.2.0 (2026-06-02): Expanded README Analysis 2 documentation to fully reflect ordinal logistic regression QMD content.
+- v2.2.0 (2026-06-02): Fixed README Analysis 2 statistical flow to match ordinal QMD exactly — Model Comparison and Interpretation of Results restored as separate sections; section order corrected.
