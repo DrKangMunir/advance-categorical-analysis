@@ -1,4 +1,4 @@
-# Advance Categorical Data Analysis – GDT600
+# Advance Categorical Data Analysis
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![R ≥ 4.0](https://img.shields.io/badge/R-≥%204.0-blue.svg)
