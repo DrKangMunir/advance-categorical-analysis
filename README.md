@@ -176,15 +176,25 @@ Key predictors: `HighBP`, `HighChol`, `BMI`, `Smoker`, `PhysActivity`, `GenHlth`
 
 ### Analysis 1 — Multinomial Logistic Regression: Contraceptive Method Choice
 
-- **Data preparation** — variable recoding, factor labelling, dichotomisation of education and standard of living, reference category assignment for `VGAM` and `nnet`
-- **Exploratory data analysis** — descriptive statistics by contraceptive method (Table 2)
-- **Unadjusted models** — simple multinomial models for wife's religion (Model 1) and wife's education (Model 2) with RRRs and 95% CIs
-- **Adjusted models** — full model (Model 3, four-level factors) and final parsimonious model (Model 4, dichotomised predictors)
-- **Model fit** — global LRT against null, McFadden R²
-- **Estimation** — adjusted RRRs, log-odds, and 95% CIs for both comparisons (long-term vs no-use; short-term vs no-use)
-- **Prediction** — predicted log-odds and probabilities, manual derivation using the multinomial probability formula, verified against `predict.vgam()`
-- **Cross-validation** — coefficient comparison between `VGAM::vglm` and `nnet::multinom`
-- **Discussion & limitations** — interpretation of education, parity, religion, age, SoL, and media effects
+- **Data preparation** — variable recoding, factor labelling, dichotomisation of education and standard of living (low = levels 1–2, high = levels 3–4), reference category assignment for `VGAM` (`no_use` as last level) and `nnet` (`no_use` as first level)
+- **Exploratory data analysis** — descriptive statistics by contraceptive method (Table 2); group-level distributions for all predictors
+- **Unadjusted models**
+  - Model 1: wife's religion — RRR, 95% CI, log-odds (Table 3)
+  - Model 2: wife's education (four-level) — dose-response pattern, RRR, 95% CI (Table 4)
+- **Adjusted models**
+  - Model 3 (full): all seven predictors with four-level education and SoL — coefficient pattern inspection
+  - Model 4 (final): dichotomised education and SoL — parsimonious model for final inference
+- **Model diagnostics** — multicollinearity via GVIF (`car::vif()` on proxy OLS model)
+- **Interaction analysis** — a priori Religion × Education interaction; LRT comparison of main-effects vs interaction model; interaction RRRs and 95% CIs
+- **Model fit** — global LRT vs null, McFadden R²
+- **Model comparison** — AIC and BIC across null, full (4-level), and final (dichotomised) models
+- **Model results** — adjusted RRRs, log-odds, and 95% CIs for both equations: long-term vs no-use and short-term vs no-use (Table 5); predictor-by-predictor interpretation
+- **Prediction**
+  - Predicted log-odds and probabilities from Model 1 (`predict.vgam`, `type = "link"` and `"response"`)
+  - Manual derivation using the multinomial probability formula for non-Islamic and Islamic profiles, verified against `predict.vgam()`
+  - Predicted probabilities from the final adjusted model for four covariate profiles varying education, religion, and standard of living
+- **Cross-validation** — coefficient comparison between `VGAM::vglm` and `nnet::multinom`; p-values via z-test from `nnet`; 95% CIs from three-dimensional `confint` array
+- **Discussion & limitations** — interpretation of education, parity, religion, age, SoL, and media effects; Religion × Education interaction conclusion; cross-sectional and generalisability caveats
 
 ### Analysis 2 — Ordinal Logistic Regression: Diabetes Severity
 
@@ -239,3 +249,4 @@ This project is licensed under the **MIT License**.
 
 - v1.0.0 (2026-06-02): Initial release — ordinal logistic regression (diabetes, CDC BRFSS 2015).
 - v2.0.0 (2026-06-02): Added multinomial logistic regression (contraceptive choice, Indonesia 1987). Repo restructured into two analysis subfolders.
+- v2.1.0 (2026-06-02): Updated multinomial analysis — added model diagnostics (GVIF), interaction analysis (Religion × Education), model comparison (AIC/BIC), and final-model predicted probability profiles.

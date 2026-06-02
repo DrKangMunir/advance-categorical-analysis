@@ -2595,17 +2595,30 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#full-model" id="toc-full-model" class="nav-link" data-scroll-target="#full-model"><span class="header-section-number">3.3.1</span> Full Model</a></li>
   <li><a href="#final-model" id="toc-final-model" class="nav-link" data-scroll-target="#final-model"><span class="header-section-number">3.3.2</span> Final Model</a></li>
-  <li><a href="#model-fit" id="toc-model-fit" class="nav-link" data-scroll-target="#model-fit"><span class="header-section-number">3.3.3</span> Model Fit</a></li>
-  <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation"><span class="header-section-number">3.3.4</span> Estimation</a></li>
-  <li><a href="#inference" id="toc-inference" class="nav-link" data-scroll-target="#inference"><span class="header-section-number">3.3.5</span> Inference</a></li>
   </ul></li>
-  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction"><span class="header-section-number">3.4</span> Prediction</a>
+  <li><a href="#model-diagnostics" id="toc-model-diagnostics" class="nav-link" data-scroll-target="#model-diagnostics"><span class="header-section-number">3.4</span> Model Diagnostics</a>
   <ul class="collapse">
-  <li><a href="#predicted-log-odds" id="toc-predicted-log-odds" class="nav-link" data-scroll-target="#predicted-log-odds"><span class="header-section-number">3.4.1</span> Predicted Log-odds</a></li>
-  <li><a href="#predicted-probabilities" id="toc-predicted-probabilities" class="nav-link" data-scroll-target="#predicted-probabilities"><span class="header-section-number">3.4.2</span> Predicted Probabilities</a></li>
-  <li><a href="#predicted-probabilities-for-specific-profiles" id="toc-predicted-probabilities-for-specific-profiles" class="nav-link" data-scroll-target="#predicted-probabilities-for-specific-profiles"><span class="header-section-number">3.4.3</span> Predicted Probabilities for Specific Profiles</a></li>
+  <li><a href="#multicollinearity-check" id="toc-multicollinearity-check" class="nav-link" data-scroll-target="#multicollinearity-check"><span class="header-section-number">3.4.1</span> Multicollinearity Check</a></li>
   </ul></li>
-  <li><a href="#cross-validation-with-nnetmultinom" id="toc-cross-validation-with-nnetmultinom" class="nav-link" data-scroll-target="#cross-validation-with-nnetmultinom"><span class="header-section-number">3.5</span> Cross-validation with nnet::multinom</a></li>
+  <li><a href="#interaction-analysis" id="toc-interaction-analysis" class="nav-link" data-scroll-target="#interaction-analysis"><span class="header-section-number">3.5</span> Interaction Analysis</a>
+  <ul class="collapse">
+  <li><a href="#religion-education" id="toc-religion-education" class="nav-link" data-scroll-target="#religion-education"><span class="header-section-number">3.5.1</span> Religion × Education</a></li>
+  </ul></li>
+  <li><a href="#model-fit" id="toc-model-fit" class="nav-link" data-scroll-target="#model-fit"><span class="header-section-number">3.6</span> Model Fit</a></li>
+  <li><a href="#model-comparison" id="toc-model-comparison" class="nav-link" data-scroll-target="#model-comparison"><span class="header-section-number">3.7</span> Model Comparison</a></li>
+  <li><a href="#model-results" id="toc-model-results" class="nav-link" data-scroll-target="#model-results"><span class="header-section-number">3.8</span> Model Results</a>
+  <ul class="collapse">
+  <li><a href="#adjusted-odds-ratios" id="toc-adjusted-odds-ratios" class="nav-link" data-scroll-target="#adjusted-odds-ratios"><span class="header-section-number">3.8.1</span> Adjusted Odds Ratios</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation"><span class="header-section-number">3.8.2</span> Interpretation</a></li>
+  </ul></li>
+  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction"><span class="header-section-number">3.9</span> Prediction</a>
+  <ul class="collapse">
+  <li><a href="#predicted-log-odds" id="toc-predicted-log-odds" class="nav-link" data-scroll-target="#predicted-log-odds"><span class="header-section-number">3.9.1</span> Predicted Log-odds</a></li>
+  <li><a href="#predicted-probabilities" id="toc-predicted-probabilities" class="nav-link" data-scroll-target="#predicted-probabilities"><span class="header-section-number">3.9.2</span> Predicted Probabilities</a></li>
+  <li><a href="#predicted-probabilities-for-specific-profiles" id="toc-predicted-probabilities-for-specific-profiles" class="nav-link" data-scroll-target="#predicted-probabilities-for-specific-profiles"><span class="header-section-number">3.9.3</span> Predicted Probabilities for Specific Profiles</a></li>
+  <li><a href="#predicted-probabilities-from-the-final-model" id="toc-predicted-probabilities-from-the-final-model" class="nav-link" data-scroll-target="#predicted-probabilities-from-the-final-model"><span class="header-section-number">3.9.4</span> Predicted Probabilities from the Final Model</a></li>
+  </ul></li>
+  <li><a href="#cross-validation-with-nnetmultinom" id="toc-cross-validation-with-nnetmultinom" class="nav-link" data-scroll-target="#cross-validation-with-nnetmultinom"><span class="header-section-number">3.10</span> Cross-validation with nnet::multinom</a></li>
   </ul></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">4</span> Discussion</a></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations"><span class="header-section-number">5</span> Limitations</a></li>
@@ -2738,8 +2751,9 @@ window.Quarto = {
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(VGAM)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="cell">
@@ -2933,20 +2947,20 @@ Table 1: Table 2. Sample characteristics by contraceptive method
 </figcaption>
 <div aria-describedby="tbl-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="ubgkhcexka" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ubgkhcexka table {
+<div id="fiowwgufte" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fiowwgufte table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#ubgkhcexka thead, #ubgkhcexka tbody, #ubgkhcexka tfoot, #ubgkhcexka tr, #ubgkhcexka td, #ubgkhcexka th {
+#fiowwgufte thead, #fiowwgufte tbody, #fiowwgufte tfoot, #fiowwgufte tr, #fiowwgufte td, #fiowwgufte th {
 border-style: none;
 }
-#ubgkhcexka p {
+#fiowwgufte p {
 margin: 0;
 padding: 0;
 }
-#ubgkhcexka .gt_table {
+#fiowwgufte .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -2971,11 +2985,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#ubgkhcexka .gt_caption {
+#fiowwgufte .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#ubgkhcexka .gt_title {
+#fiowwgufte .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -2986,7 +3000,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#ubgkhcexka .gt_subtitle {
+#fiowwgufte .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -2997,7 +3011,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#ubgkhcexka .gt_heading {
+#fiowwgufte .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -3008,12 +3022,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#ubgkhcexka .gt_bottom_border {
+#fiowwgufte .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ubgkhcexka .gt_col_headings {
+#fiowwgufte .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3027,7 +3041,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#ubgkhcexka .gt_col_heading {
+#fiowwgufte .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3046,7 +3060,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#ubgkhcexka .gt_column_spanner_outer {
+#fiowwgufte .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3057,13 +3071,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#ubgkhcexka .gt_column_spanner_outer:first-child {
+#fiowwgufte .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#ubgkhcexka .gt_column_spanner_outer:last-child {
+#fiowwgufte .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#ubgkhcexka .gt_column_spanner {
+#fiowwgufte .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -3074,10 +3088,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#ubgkhcexka .gt_spanner_row {
+#fiowwgufte .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#ubgkhcexka .gt_group_heading {
+#fiowwgufte .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3102,7 +3116,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#ubgkhcexka .gt_empty_group_heading {
+#fiowwgufte .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -3116,13 +3130,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#ubgkhcexka .gt_from_md > :first-child {
+#fiowwgufte .gt_from_md > :first-child {
 margin-top: 0;
 }
-#ubgkhcexka .gt_from_md > :last-child {
+#fiowwgufte .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#ubgkhcexka .gt_row {
+#fiowwgufte .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3140,7 +3154,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#ubgkhcexka .gt_stub {
+#fiowwgufte .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3152,7 +3166,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ubgkhcexka .gt_stub_row_group {
+#fiowwgufte .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3165,13 +3179,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#ubgkhcexka .gt_row_group_first td {
+#fiowwgufte .gt_row_group_first td {
 border-top-width: 2px;
 }
-#ubgkhcexka .gt_row_group_first th {
+#fiowwgufte .gt_row_group_first th {
 border-top-width: 2px;
 }
-#ubgkhcexka .gt_summary_row {
+#fiowwgufte .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3180,14 +3194,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ubgkhcexka .gt_first_summary_row {
+#fiowwgufte .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#ubgkhcexka .gt_first_summary_row.thick {
+#fiowwgufte .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#ubgkhcexka .gt_last_summary_row {
+#fiowwgufte .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3196,7 +3210,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ubgkhcexka .gt_grand_summary_row {
+#fiowwgufte .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3205,7 +3219,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ubgkhcexka .gt_first_grand_summary_row {
+#fiowwgufte .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3214,7 +3228,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#ubgkhcexka .gt_last_grand_summary_row_top {
+#fiowwgufte .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3223,10 +3237,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#ubgkhcexka .gt_striped {
+#fiowwgufte .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#ubgkhcexka .gt_table_body {
+#fiowwgufte .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3234,7 +3248,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ubgkhcexka .gt_footnotes {
+#fiowwgufte .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3247,7 +3261,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#ubgkhcexka .gt_footnote {
+#fiowwgufte .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -3255,7 +3269,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ubgkhcexka .gt_sourcenotes {
+#fiowwgufte .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3268,64 +3282,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#ubgkhcexka .gt_sourcenote {
+#fiowwgufte .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ubgkhcexka .gt_left {
+#fiowwgufte .gt_left {
 text-align: left;
 }
-#ubgkhcexka .gt_center {
+#fiowwgufte .gt_center {
 text-align: center;
 }
-#ubgkhcexka .gt_right {
+#fiowwgufte .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#ubgkhcexka .gt_font_normal {
+#fiowwgufte .gt_font_normal {
 font-weight: normal;
 }
-#ubgkhcexka .gt_font_bold {
+#fiowwgufte .gt_font_bold {
 font-weight: bold;
 }
-#ubgkhcexka .gt_font_italic {
+#fiowwgufte .gt_font_italic {
 font-style: italic;
 }
-#ubgkhcexka .gt_super {
+#fiowwgufte .gt_super {
 font-size: 65%;
 }
-#ubgkhcexka .gt_footnote_marks {
+#fiowwgufte .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#ubgkhcexka .gt_asterisk {
+#fiowwgufte .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#ubgkhcexka .gt_indent_1 {
+#fiowwgufte .gt_indent_1 {
 text-indent: 5px;
 }
-#ubgkhcexka .gt_indent_2 {
+#fiowwgufte .gt_indent_2 {
 text-indent: 10px;
 }
-#ubgkhcexka .gt_indent_3 {
+#fiowwgufte .gt_indent_3 {
 text-indent: 15px;
 }
-#ubgkhcexka .gt_indent_4 {
+#fiowwgufte .gt_indent_4 {
 text-indent: 20px;
 }
-#ubgkhcexka .gt_indent_5 {
+#fiowwgufte .gt_indent_5 {
 text-indent: 25px;
 }
-#ubgkhcexka .katex-display {
+#fiowwgufte .katex-display {
 display: inline-flex !important;
 margin-bottom: 0.75em !important;
 }
-#ubgkhcexka div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#fiowwgufte div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
 height: 0px !important;
 }
 </style>
@@ -3956,7 +3970,7 @@ Reference group is level  3  of the response</code></pre>
 <section id="final-model" class="level3" data-number="3.3.2">
 <h3 data-number="3.3.2" class="anchored" data-anchor-id="final-model"><span class="header-section-number">3.3.2</span> Final Model</h3>
 <blockquote class="blockquote">
-<p>Wife’s education and standard of living index are each collapsed to two levels (low vs high) to improve parsimony while preserving the main contrast. This is the model used for final inference and predictions.</p>
+<p>Wife’s education and standard of living index are each collapsed to two levels (low vs high) to improve parsimony while preserving the main contrast. This is the model carried forward for diagnostics, interaction testing, and final inference.</p>
 </blockquote>
 <div class="cell">
 <details class="code-fold">
@@ -4011,74 +4025,347 @@ Reference group is level  3  of the response</code></pre>
 </div>
 </div>
 </section>
-<section id="model-fit" class="level3" data-number="3.3.3">
-<h3 data-number="3.3.3" class="anchored" data-anchor-id="model-fit"><span class="header-section-number">3.3.3</span> Model Fit</h3>
+</section>
+<section id="model-diagnostics" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="model-diagnostics"><span class="header-section-number">3.4</span> Model Diagnostics</h2>
+<section id="multicollinearity-check" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="multicollinearity-check"><span class="header-section-number">3.4.1</span> Multicollinearity Check</h3>
+<blockquote class="blockquote">
+<p><code>VGAM::vglm()</code> does not provide a native VIF function. A proxy ordinary least squares model fitted on the same predictors approximates multicollinearity via <code>car::vif()</code>.</p>
+</blockquote>
 <div class="cell">
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>m_null  <span class="ot">&lt;-</span> <span class="fu">vglm</span>(cmc_vgam <span class="sc">~</span> <span class="dv">1</span>, multinomial, <span class="at">data =</span> cmc)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>ll_full <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">logLik</span>(fitmlog4))</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>ll_null <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">logLik</span>(m_null))</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>df_full <span class="ot">&lt;-</span> <span class="fu">attr</span>(<span class="fu">logLik</span>(fitmlog4), <span class="st">&quot;df&quot;</span>)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>df_null <span class="ot">&lt;-</span> <span class="fu">attr</span>(<span class="fu">logLik</span>(m_null),   <span class="st">&quot;df&quot;</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>mod_lm_vif <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(cmc_vgam) <span class="sc">~</span> wife_age <span class="sc">+</span> wife_edu_d <span class="sc">+</span> wife_religion2 <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                          wife_working2 <span class="sc">+</span> sol_index_d <span class="sc">+</span> num_children <span class="sc">+</span> media2,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> cmc</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>r2_mcf  <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> ll_full <span class="sc">/</span> ll_null</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>lrt_chi <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> (ll_null <span class="sc">-</span> ll_full)</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>lrt_df  <span class="ot">&lt;-</span> df_full <span class="sc">-</span> df_null</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>lrt_p   <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(lrt_chi, <span class="at">df =</span> lrt_df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Log-likelihood (null model) = %.2f</span><span class="sc">\n</span><span class="st">&quot;</span>, ll_null))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>vif_res <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">vif</span>(mod_lm_vif)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">round</span>(vif_res, <span class="dv">3</span>),</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Variance Inflation Factors for Final Model Predictors&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed caption-top table-sm small">
+<caption>Variance Inflation Factors for Final Model Predictors</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">wife_age</td>
+<td style="text-align: right;">1.541</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wife_edu_d</td>
+<td style="text-align: right;">1.173</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">wife_religion2</td>
+<td style="text-align: right;">1.096</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wife_working2</td>
+<td style="text-align: right;">1.025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sol_index_d</td>
+<td style="text-align: right;">1.164</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">num_children</td>
+<td style="text-align: right;">1.513</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">media2</td>
+<td style="text-align: right;">1.150</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>For factor predictors, <code>car::vif()</code> reports the Generalised VIF (GVIF) and its adjusted form GVIF^(1/(2·Df)), which is directly comparable to the square root of a standard VIF. Values below 2.0 indicate no problematic collinearity. Wife’s education, standard of living, and number of children share socioeconomic pathways and mild correlation between them is expected, and the VIF check confirms whether this inflates standard errors to a degree that warrants concern.</p>
+</section>
+</section>
+<section id="interaction-analysis" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="interaction-analysis"><span class="header-section-number">3.5</span> Interaction Analysis</h2>
+<section id="religion-education" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="religion-education"><span class="header-section-number">3.5.1</span> Religion × Education</h3>
+<p>The unadjusted analysis showed education had a far larger effect on long-term use than on short-term use (RRR 13.54 vs 2.87 at the highest education level), and religion suppressed long-term use strongly. These divergent patterns motivate an a priori interaction test: highly educated Islamic women may be more willing to adopt long-acting methods than their less-educated counterparts, producing an effect beyond the simple sum of the two main effects. An interaction term <code>wife_religion2 × wife_edu_d</code> is added to the final model and compared against the main-effects model via LRT. A significant result (p &lt; 0.05) indicates the interaction improves fit and should be retained for inference.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fitmlog_int <span class="ot">&lt;-</span> <span class="fu">vglm</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  cmc_vgam <span class="sc">~</span> wife_age <span class="sc">+</span> wife_edu_d <span class="sc">*</span> wife_religion2 <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>             wife_working2 <span class="sc">+</span> sol_index_d <span class="sc">+</span> num_children <span class="sc">+</span> media2,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  multinomial,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> cmc</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitmlog_int)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+vglm(formula = cmc_vgam ~ wife_age + wife_edu_d * wife_religion2 + 
+    wife_working2 + sol_index_d + num_children + media2, family = multinomial, 
+    data = cmc)
+
+Coefficients: 
+                                     Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept):1                        -1.54403    0.71024  -2.174 0.029708 *  
+(Intercept):2                         1.95806    0.59037   3.317 0.000911 ***
+wife_age:1                           -0.03388    0.01130  -2.997 0.002729 ** 
+wife_age:2                           -0.10654    0.01090  -9.772  &lt; 2e-16 ***
+wife_edu_dhigh:1                      1.30061    0.61484   2.115 0.034397 *  
+wife_edu_dhigh:2                      0.35076    0.51257   0.684 0.493775    
+wife_religion2islam:1                -0.82103    0.61473  -1.336 0.181685    
+wife_religion2islam:2                -0.63663    0.49121  -1.296 0.194955    
+wife_working2no:1                    -0.02984    0.16500  -0.181 0.856466    
+wife_working2no:2                     0.13216    0.14941   0.885 0.376386    
+sol_index_dhigh:1                     0.86324    0.21020   4.107 4.01e-05 ***
+sol_index_dhigh:2                     0.41785    0.15252   2.740 0.006150 ** 
+num_children:1                        0.30224    0.04060   7.445 9.71e-14 ***
+num_children:2                        0.33673    0.03769   8.934  &lt; 2e-16 ***
+media2not_good:1                     -0.68930    0.38042  -1.812 0.069992 .  
+media2not_good:2                     -0.64843    0.26868  -2.413 0.015804 *  
+wife_edu_dhigh:wife_religion2islam:1  0.26933    0.64323   0.419 0.675424    
+wife_edu_dhigh:wife_religion2islam:2  0.24608    0.52898   0.465 0.641800    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Names of linear predictors: log(mu[,1]/mu[,3]), log(mu[,2]/mu[,3])
+
+Residual deviance: 2831.681 on 2928 degrees of freedom
+
+Log-likelihood: -1415.84 on 2928 degrees of freedom
+
+Number of Fisher scoring iterations: 5 
+
+
+Reference group is level  3  of the response</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ll_int      <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">logLik</span>(fitmlog_int))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ll_main     <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">logLik</span>(fitmlog4))</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>lrt_chi_int <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> (ll_main <span class="sc">-</span> ll_int)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>lrt_df_int  <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">coef</span>(fitmlog_int)) <span class="sc">-</span> <span class="fu">length</span>(<span class="fu">coef</span>(fitmlog4))</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>lrt_p_int   <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(lrt_chi_int, <span class="at">df =</span> lrt_df_int, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;LRT (Religion x Education interaction): chi-sq(%d) = %.3f, p = %.4f</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>            lrt_df_int, lrt_chi_int, lrt_p_int))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>LRT (Religion x Education interaction): chi-sq(2) = 0.292, p = 0.8641</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>b_int  <span class="ot">&lt;-</span> <span class="fu">coef</span>(fitmlog_int)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>ci_int <span class="ot">&lt;-</span> <span class="fu">confint</span>(fitmlog_int)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>res_int <span class="ot">&lt;-</span> <span class="fu">cbind</span>(b_int, <span class="fu">exp</span>(b_int), ci_int, <span class="fu">exp</span>(ci_int))</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(res_int) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;b&quot;</span>, <span class="st">&quot;rrr&quot;</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;lower 95% b&quot;</span>, <span class="st">&quot;upper 95% b&quot;</span>,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;lower 95% rrr&quot;</span>, <span class="st">&quot;upper 95% rrr&quot;</span>)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>int_rows <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;.*:.*:&quot;</span>, <span class="fu">rownames</span>(res_int))</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">round</span>(res_int[int_rows, ], <span class="dv">3</span>),</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Interaction terms: Religion x Education, RRR and 95% CI&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed caption-top table-sm small">
+<caption>Interaction terms: Religion x Education, RRR and 95% CI</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">b</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">rrr</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">lower 95% b</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">upper 95% b</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">lower 95% rrr</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">upper 95% rrr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">wife_edu_dhigh:wife_religion2islam:1</td>
+<td style="text-align: right;">0.269</td>
+<td style="text-align: right;">1.309</td>
+<td style="text-align: right;">-0.991</td>
+<td style="text-align: right;">1.530</td>
+<td style="text-align: right;">0.371</td>
+<td style="text-align: right;">4.618</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wife_edu_dhigh:wife_religion2islam:2</td>
+<td style="text-align: right;">0.246</td>
+<td style="text-align: right;">1.279</td>
+<td style="text-align: right;">-0.791</td>
+<td style="text-align: right;">1.283</td>
+<td style="text-align: right;">0.454</td>
+<td style="text-align: right;">3.607</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Interpretation:</strong> The LRT tests whether the Religion × Education interaction terms jointly improve fit (<span class="math inline">\(\chi^2\)</span>(2) = 0.292, p = 0.8641). The interaction is not statistically significant, indicating the effect of education on contraceptive method choice does not differ meaningfully by religion in this sample. The main-effects model is retained on parsimony grounds.</p>
+</section>
+</section>
+<section id="model-fit" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="model-fit"><span class="header-section-number">3.6</span> Model Fit</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>m_null  <span class="ot">&lt;-</span> <span class="fu">vglm</span>(cmc_vgam <span class="sc">~</span> <span class="dv">1</span>, multinomial, <span class="at">data =</span> cmc)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>ll_full <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">logLik</span>(fitmlog4))</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>ll_null <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">logLik</span>(m_null))</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>r2_mcf  <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> ll_full <span class="sc">/</span> ll_null</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>lrt_chi <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> (ll_null <span class="sc">-</span> ll_full)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>lrt_df  <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">coef</span>(fitmlog4)) <span class="sc">-</span> <span class="fu">length</span>(<span class="fu">coef</span>(m_null))</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>lrt_p   <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(lrt_chi, <span class="at">df =</span> lrt_df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Log-likelihood (null model) = %.2f</span><span class="sc">\n</span><span class="st">&quot;</span>, ll_null))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Log-likelihood (null model) = -1571.36</code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Log-likelihood (full model) = %.2f</span><span class="sc">\n</span><span class="st">&quot;</span>, ll_full))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Log-likelihood (full model) = %.2f</span><span class="sc">\n</span><span class="st">&quot;</span>, ll_full))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Log-likelihood (full model) = -1415.99</code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;McFadden R²                 = %.4f</span><span class="sc">\n</span><span class="st">&quot;</span>, r2_mcf))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;McFadden R²                 = %.4f</span><span class="sc">\n</span><span class="st">&quot;</span>, r2_mcf))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>McFadden R²                 = 0.0989</code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;LRT chi-sq(%d)              = %.2f</span><span class="sc">\n</span><span class="st">&quot;</span>, lrt_df, lrt_chi))</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;LRT p-value                 = %.6f</span><span class="sc">\n</span><span class="st">&quot;</span>, lrt_p))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;LRT chi-sq(%d)              = %.2f</span><span class="sc">\n</span><span class="st">&quot;</span>, lrt_df, lrt_chi))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>LRT chi-sq(14)              = 310.75</code></pre>
 </div>
-<p>The full model significantly improved fit over the null (intercept-only) model (LRT <span class="math inline">\(\chi^2\)</span>() = 310.75, p &lt; 0.001). McFadden R² = 0.099. In multinomial logistic regression, McFadden values of 0.20–0.40 are considered good fit and values above 0.40 are considered excellent; values below 0.20 indicate that the predictors explain a limited share of the variation in method choice.</p>
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;LRT p-value                 = %.6f</span><span class="sc">\n</span><span class="st">&quot;</span>, lrt_p))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>LRT p-value                 = 0.000000</code></pre>
+</div>
+</div>
+<p>The final model significantly improved fit over the null (intercept-only) model (LRT <span class="math inline">\(\chi^2\)</span>(14) = 310.75, p &lt; 0.001). McFadden R² = 0.099. In multinomial logistic regression, McFadden values of 0.20–0.40 are considered good fit and values above 0.40 are considered excellent, while values below 0.20 indicate that the predictors explain a limited share of the variation in method choice.</p>
 </section>
-<section id="estimation" class="level3" data-number="3.3.4">
-<h3 data-number="3.3.4" class="anchored" data-anchor-id="estimation"><span class="header-section-number">3.3.4</span> Estimation</h3>
+<section id="model-comparison" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="model-comparison"><span class="header-section-number">3.7</span> Model Comparison</h2>
+<p>AIC and BIC are compared across the null model, the full model with four-level education and standard of living, and the final dichotomised model, to confirm that collapsing the four-level factors did not meaningfully sacrifice fit.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Model  =</span> <span class="fu">c</span>(<span class="st">&quot;Null (intercept only)&quot;</span>,</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;Full model (4-level edu and SoL)&quot;</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;Final model (dichotomised edu and SoL)&quot;</span>),</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">logLik =</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="fu">as.numeric</span>(<span class="fu">logLik</span>(m_null)),</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">as.numeric</span>(<span class="fu">logLik</span>(fitmlog3)),</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">as.numeric</span>(<span class="fu">logLik</span>(fitmlog4))), <span class="dv">2</span>),</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">df     =</span> <span class="fu">c</span>(<span class="fu">length</span>(<span class="fu">coef</span>(m_null)),</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">length</span>(<span class="fu">coef</span>(fitmlog3)),</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>              <span class="fu">length</span>(<span class="fu">coef</span>(fitmlog4))),</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">AIC    =</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="fu">AIC</span>(m_null), <span class="fu">AIC</span>(fitmlog3), <span class="fu">AIC</span>(fitmlog4)), <span class="dv">1</span>),</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">BIC    =</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="fu">BIC</span>(m_null), <span class="fu">BIC</span>(fitmlog3), <span class="fu">BIC</span>(fitmlog4)), <span class="dv">1</span>)</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Model Comparison: log-likelihood, AIC and BIC&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-striped table-hover caption-top table-sm small">
+<caption>Model Comparison: log-likelihood, AIC and BIC</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Model</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">logLik</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">df</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">AIC</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">BIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Null (intercept only)</td>
+<td style="text-align: right;">-1571.36</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3146.7</td>
+<td style="text-align: right;">3157.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Full model (4-level edu and SoL)</td>
+<td style="text-align: right;">-1394.56</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">2837.1</td>
+<td style="text-align: right;">2964.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Final model (dichotomised edu and SoL)</td>
+<td style="text-align: right;">-1415.99</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">2864.0</td>
+<td style="text-align: right;">2948.7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>A ΔAIC within approximately 2 units between the full and final models indicates that the parsimony gained from dichotomisation carries no meaningful loss of fit. BIC applies a stronger penalty for model complexity and tends to favour the more parsimonious model.</p>
+</section>
+<section id="model-results" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="model-results"><span class="header-section-number">3.8</span> Model Results</h2>
+<section id="adjusted-odds-ratios" class="level3" data-number="3.8.1">
+<h3 data-number="3.8.1" class="anchored" data-anchor-id="adjusted-odds-ratios"><span class="header-section-number">3.8.1</span> Adjusted Odds Ratios</h3>
 <blockquote class="blockquote">
-<p>Log-odds coefficients (<code>b</code>) and their exponentiated forms (Relative Risk Ratios, <code>rrr</code>) are extracted, combined with 95% confidence intervals, and displayed in a single table. RRR &gt; 1 indicates higher relative odds of that method over no use, and RRR &lt; 1 indicates lower relative odds.</p>
+<p>The table below presents log-odds coefficients and Relative Risk Ratios (RRR) with 95% confidence intervals from the final main-effects model. The interaction test confirmed the main-effects model as the preferred specification, so the estimates below represent the final adjusted results. RRR &gt; 1 indicates higher relative odds of that method over no use, and RRR &lt; 1 indicates lower relative odds.</p>
 </blockquote>
 <div class="cell">
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>b_m4  <span class="ot">&lt;-</span> <span class="fu">coef</span>(fitmlog4)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>ci_m4 <span class="ot">&lt;-</span> <span class="fu">confint</span>(fitmlog4)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>b_rrr_m4    <span class="ot">&lt;-</span> <span class="fu">cbind</span>(b_m4, <span class="fu">exp</span>(b_m4))</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>ci_b_rrr_m4 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(ci_m4, <span class="fu">exp</span>(ci_m4))</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>res_m4      <span class="ot">&lt;-</span> <span class="fu">cbind</span>(b_rrr_m4, ci_b_rrr_m4)</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(res_m4) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;b&quot;</span>, <span class="st">&quot;rrr&quot;</span>,</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;lower 95% b&quot;</span>, <span class="st">&quot;upper 95% b&quot;</span>,</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;lower 95% rrr&quot;</span>, <span class="st">&quot;upper 95% rrr&quot;</span>)</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">round</span>(res_m4, <span class="dv">3</span>),</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Table 5. Adjusted multivariable model: Log Odds, RRR and 95% CI&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>,</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">&quot;condensed&quot;</span>, <span class="st">&quot;responsive&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">&quot;Long-term vs No-use&quot;</span>, <span class="dv">1</span>, <span class="fu">nrow</span>(res_m4) <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">&quot;Short-term vs No-use&quot;</span>, <span class="fu">nrow</span>(res_m4) <span class="sc">/</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span>, <span class="fu">nrow</span>(res_m4))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>b_m4  <span class="ot">&lt;-</span> <span class="fu">coef</span>(fitmlog4)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>ci_m4 <span class="ot">&lt;-</span> <span class="fu">confint</span>(fitmlog4)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>b_rrr_m4    <span class="ot">&lt;-</span> <span class="fu">cbind</span>(b_m4, <span class="fu">exp</span>(b_m4))</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>ci_b_rrr_m4 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(ci_m4, <span class="fu">exp</span>(ci_m4))</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>res_m4      <span class="ot">&lt;-</span> <span class="fu">cbind</span>(b_rrr_m4, ci_b_rrr_m4)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(res_m4) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;b&quot;</span>, <span class="st">&quot;rrr&quot;</span>,</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;lower 95% b&quot;</span>, <span class="st">&quot;upper 95% b&quot;</span>,</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;lower 95% rrr&quot;</span>, <span class="st">&quot;upper 95% rrr&quot;</span>)</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">round</span>(res_m4, <span class="dv">3</span>),</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Table 5. Adjusted multivariable model: Log Odds, RRR and 95% CI&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>,</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">&quot;condensed&quot;</span>, <span class="st">&quot;responsive&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">&quot;Long-term vs No-use&quot;</span>, <span class="dv">1</span>, <span class="fu">nrow</span>(res_m4) <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">&quot;Short-term vs No-use&quot;</span>, <span class="fu">nrow</span>(res_m4) <span class="sc">/</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span>, <span class="fu">nrow</span>(res_m4))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="tbl-final-results" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -4260,11 +4547,9 @@ Table 2: Table 5. Adjusted multivariable model: Log Odds, RRR and 95% CI
 </div>
 </div>
 </section>
-<section id="inference" class="level3" data-number="3.3.5">
-<h3 data-number="3.3.5" class="anchored" data-anchor-id="inference"><span class="header-section-number">3.3.5</span> Inference</h3>
-<blockquote class="blockquote">
-<p>The table above produces two sets of estimates, one per comparison equation. Each predictor’s adjusted effect from Table 5 is interpreted below.</p>
-</blockquote>
+<section id="interpretation" class="level3" data-number="3.8.2">
+<h3 data-number="3.8.2" class="anchored" data-anchor-id="interpretation"><span class="header-section-number">3.8.2</span> Interpretation</h3>
+<p>All estimates are adjusted for every other predictor in the model. Two equations are fitted simultaneously: long-term vs no-use and short-term vs no-use. Each RRR describes the relative odds of choosing that method over no use, holding all other predictors constant.</p>
 <p><strong>Long-term vs No-use</strong> (adjusted)</p>
 <ul>
 <li><strong>Wife’s age</strong>: RRR = 0.97 (95% CI: 0.95–0.99, p = 0.003), indicating a 3% decrease in relative odds of long-term use per additional year of age.</li>
@@ -4287,17 +4572,17 @@ Table 2: Table 5. Adjusted multivariable model: Log Odds, RRR and 95% CI
 </ul>
 </section>
 </section>
-<section id="prediction" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="prediction"><span class="header-section-number">3.4</span> Prediction</h2>
+<section id="prediction" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="prediction"><span class="header-section-number">3.9</span> Prediction</h2>
 <blockquote class="blockquote">
 <p>Prediction is demonstrated using the simple Model 1 (wife’s religion only) to keep calculations transparent. <code>type = &quot;link&quot;</code> returns predicted log-odds and <code>type = &quot;response&quot;</code> converts these to probabilities on the 0–1 scale.</p>
 </blockquote>
-<section id="predicted-log-odds" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="predicted-log-odds"><span class="header-section-number">3.4.1</span> Predicted Log-odds</h3>
+<section id="predicted-log-odds" class="level3" data-number="3.9.1">
+<h3 data-number="3.9.1" class="anchored" data-anchor-id="predicted-log-odds"><span class="header-section-number">3.9.1</span> Predicted Log-odds</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">predict.vgam</span>(fitmlog1, <span class="at">type =</span> <span class="st">&quot;link&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">predict.vgam</span>(fitmlog1, <span class="at">type =</span> <span class="st">&quot;link&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  log(mu[,1]/mu[,3]) log(mu[,2]/mu[,3])
@@ -4315,12 +4600,12 @@ Table 2: Table 5. Adjusted multivariable model: Log Odds, RRR and 95% CI
 <li>Islamic women show a more negative value in Column 1, consistent with the negative religion coefficient (b = −0.7813).</li>
 </ul>
 </section>
-<section id="predicted-probabilities" class="level3" data-number="3.4.2">
-<h3 data-number="3.4.2" class="anchored" data-anchor-id="predicted-probabilities"><span class="header-section-number">3.4.2</span> Predicted Probabilities</h3>
+<section id="predicted-probabilities" class="level3" data-number="3.9.2">
+<h3 data-number="3.9.2" class="anchored" data-anchor-id="predicted-probabilities"><span class="header-section-number">3.9.2</span> Predicted Probabilities</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">predict.vgam</span>(fitmlog1, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">predict.vgam</span>(fitmlog1, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  long_term short_term    no_use
@@ -4338,8 +4623,8 @@ Table 2: Table 5. Adjusted multivariable model: Log Odds, RRR and 95% CI
 <li>Islamic women show a higher predicted probability of no-use and a lower probability of long-term use, directly reflecting RRR = 0.46 from the model above.</li>
 </ul>
 </section>
-<section id="predicted-probabilities-for-specific-profiles" class="level3" data-number="3.4.3">
-<h3 data-number="3.4.3" class="anchored" data-anchor-id="predicted-probabilities-for-specific-profiles"><span class="header-section-number">3.4.3</span> Predicted Probabilities for Specific Profiles</h3>
+<section id="predicted-probabilities-for-specific-profiles" class="level3" data-number="3.9.3">
+<h3 data-number="3.9.3" class="anchored" data-anchor-id="predicted-probabilities-for-specific-profiles"><span class="header-section-number">3.9.3</span> Predicted Probabilities for Specific Profiles</h3>
 <blockquote class="blockquote">
 <p>The multinomial probability formula is applied manually to verify the model output and show how predicted probabilities are computed from log-odds coefficients.</p>
 </blockquote>
@@ -4349,123 +4634,123 @@ Table 2: Table 5. Adjusted multivariable model: Log Odds, RRR and 95% CI
 <div class="cell">
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>int1   <span class="ot">&lt;-</span> <span class="fu">coef</span>(fitmlog1)[<span class="st">&quot;(Intercept):1&quot;</span>]</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>int2   <span class="ot">&lt;-</span> <span class="fu">coef</span>(fitmlog1)[<span class="st">&quot;(Intercept):2&quot;</span>]</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>b_rel1 <span class="ot">&lt;-</span> <span class="fu">coef</span>(fitmlog1)[<span class="st">&quot;wife_religion2islam:1&quot;</span>]</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>b_rel2 <span class="ot">&lt;-</span> <span class="fu">coef</span>(fitmlog1)[<span class="st">&quot;wife_religion2islam:2&quot;</span>]</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Non-Islamic woman (wife_religion = 0)</span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>logit1_nonislam <span class="ot">&lt;-</span> int1 <span class="sc">+</span> b_rel1 <span class="sc">*</span> <span class="dv">0</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>logit2_nonislam <span class="ot">&lt;-</span> int2 <span class="sc">+</span> b_rel2 <span class="sc">*</span> <span class="dv">0</span></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>denom_nonislam <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(logit1_nonislam) <span class="sc">+</span> <span class="fu">exp</span>(logit2_nonislam)</span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>p_noUse_ni <span class="ot">&lt;-</span> <span class="dv">1</span>                    <span class="sc">/</span> denom_nonislam</span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>p_long_ni  <span class="ot">&lt;-</span> <span class="fu">exp</span>(logit1_nonislam) <span class="sc">/</span> denom_nonislam</span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>p_short_ni <span class="ot">&lt;-</span> <span class="fu">exp</span>(logit2_nonislam) <span class="sc">/</span> denom_nonislam</span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;── Non-Islamic woman ──────────────────────────────</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>int1   <span class="ot">&lt;-</span> <span class="fu">coef</span>(fitmlog1)[<span class="st">&quot;(Intercept):1&quot;</span>]</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>int2   <span class="ot">&lt;-</span> <span class="fu">coef</span>(fitmlog1)[<span class="st">&quot;(Intercept):2&quot;</span>]</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>b_rel1 <span class="ot">&lt;-</span> <span class="fu">coef</span>(fitmlog1)[<span class="st">&quot;wife_religion2islam:1&quot;</span>]</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>b_rel2 <span class="ot">&lt;-</span> <span class="fu">coef</span>(fitmlog1)[<span class="st">&quot;wife_religion2islam:2&quot;</span>]</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Non-Islamic woman (wife_religion = 0)</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>logit1_nonislam <span class="ot">&lt;-</span> int1 <span class="sc">+</span> b_rel1 <span class="sc">*</span> <span class="dv">0</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>logit2_nonislam <span class="ot">&lt;-</span> int2 <span class="sc">+</span> b_rel2 <span class="sc">*</span> <span class="dv">0</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>denom_nonislam <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(logit1_nonislam) <span class="sc">+</span> <span class="fu">exp</span>(logit2_nonislam)</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>p_noUse_ni <span class="ot">&lt;-</span> <span class="dv">1</span>                    <span class="sc">/</span> denom_nonislam</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>p_long_ni  <span class="ot">&lt;-</span> <span class="fu">exp</span>(logit1_nonislam) <span class="sc">/</span> denom_nonislam</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>p_short_ni <span class="ot">&lt;-</span> <span class="fu">exp</span>(logit2_nonislam) <span class="sc">/</span> denom_nonislam</span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;── Non-Islamic woman ──────────────────────────────</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>── Non-Islamic woman ──────────────────────────────</code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  Log-odds Long-term vs No-use  :&quot;</span>, <span class="fu">round</span>(logit1_nonislam, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  Log-odds Long-term vs No-use  :&quot;</span>, <span class="fu">round</span>(logit1_nonislam, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Log-odds Long-term vs No-use  : 0.0132 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  Log-odds Short-term vs No-use :&quot;</span>, <span class="fu">round</span>(logit2_nonislam, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  Log-odds Short-term vs No-use :&quot;</span>, <span class="fu">round</span>(logit2_nonislam, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Log-odds Short-term vs No-use : -0.0834 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  P(No use)     =&quot;</span>, <span class="fu">round</span>(p_noUse_ni, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  P(No use)     =&quot;</span>, <span class="fu">round</span>(p_noUse_ni, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  P(No use)     = 0.3409 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  P(Long-term)  =&quot;</span>, <span class="fu">round</span>(p_long_ni,  <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  P(Long-term)  =&quot;</span>, <span class="fu">round</span>(p_long_ni,  <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  P(Long-term)  = 0.3455 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  P(Short-term) =&quot;</span>, <span class="fu">round</span>(p_short_ni, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  P(Short-term) =&quot;</span>, <span class="fu">round</span>(p_short_ni, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  P(Short-term) = 0.3136 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  Sum           =&quot;</span>, <span class="fu">round</span>(p_noUse_ni <span class="sc">+</span> p_long_ni <span class="sc">+</span> p_short_ni, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  Sum           =&quot;</span>, <span class="fu">round</span>(p_noUse_ni <span class="sc">+</span> p_long_ni <span class="sc">+</span> p_short_ni, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sum           = 1 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Islamic woman (wife_religion = 1)</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>logit1_islam <span class="ot">&lt;-</span> int1 <span class="sc">+</span> b_rel1 <span class="sc">*</span> <span class="dv">1</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>logit2_islam <span class="ot">&lt;-</span> int2 <span class="sc">+</span> b_rel2 <span class="sc">*</span> <span class="dv">1</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>denom_islam <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(logit1_islam) <span class="sc">+</span> <span class="fu">exp</span>(logit2_islam)</span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>p_noUse_is <span class="ot">&lt;-</span> <span class="dv">1</span>                 <span class="sc">/</span> denom_islam</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>p_long_is  <span class="ot">&lt;-</span> <span class="fu">exp</span>(logit1_islam) <span class="sc">/</span> denom_islam</span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>p_short_is <span class="ot">&lt;-</span> <span class="fu">exp</span>(logit2_islam) <span class="sc">/</span> denom_islam</span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;── Islamic woman ──────────────────────────────────</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Islamic woman (wife_religion = 1)</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>logit1_islam <span class="ot">&lt;-</span> int1 <span class="sc">+</span> b_rel1 <span class="sc">*</span> <span class="dv">1</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>logit2_islam <span class="ot">&lt;-</span> int2 <span class="sc">+</span> b_rel2 <span class="sc">*</span> <span class="dv">1</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>denom_islam <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(logit1_islam) <span class="sc">+</span> <span class="fu">exp</span>(logit2_islam)</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>p_noUse_is <span class="ot">&lt;-</span> <span class="dv">1</span>                 <span class="sc">/</span> denom_islam</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>p_long_is  <span class="ot">&lt;-</span> <span class="fu">exp</span>(logit1_islam) <span class="sc">/</span> denom_islam</span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>p_short_is <span class="ot">&lt;-</span> <span class="fu">exp</span>(logit2_islam) <span class="sc">/</span> denom_islam</span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;── Islamic woman ──────────────────────────────────</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>── Islamic woman ──────────────────────────────────</code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  Log-odds Long-term vs No-use  :&quot;</span>, <span class="fu">round</span>(logit1_islam, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  Log-odds Long-term vs No-use  :&quot;</span>, <span class="fu">round</span>(logit1_islam, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Log-odds Long-term vs No-use  : -0.7681 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  Log-odds Short-term vs No-use :&quot;</span>, <span class="fu">round</span>(logit2_islam, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  Log-odds Short-term vs No-use :&quot;</span>, <span class="fu">round</span>(logit2_islam, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Log-odds Short-term vs No-use : -0.2259 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  P(No use)     =&quot;</span>, <span class="fu">round</span>(p_noUse_is, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  P(No use)     =&quot;</span>, <span class="fu">round</span>(p_noUse_is, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  P(No use)     = 0.4421 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  P(Long-term)  =&quot;</span>, <span class="fu">round</span>(p_long_is,  <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  P(Long-term)  =&quot;</span>, <span class="fu">round</span>(p_long_is,  <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  P(Long-term)  = 0.2051 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  P(Short-term) =&quot;</span>, <span class="fu">round</span>(p_short_is, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  P(Short-term) =&quot;</span>, <span class="fu">round</span>(p_short_is, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  P(Short-term) = 0.3528 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  Sum           =&quot;</span>, <span class="fu">round</span>(p_noUse_is <span class="sc">+</span> p_long_is <span class="sc">+</span> p_short_is, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;  Sum           =&quot;</span>, <span class="fu">round</span>(p_noUse_is <span class="sc">+</span> p_long_is <span class="sc">+</span> p_short_is, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sum           = 1 </code></pre>
@@ -4485,18 +4770,111 @@ Table 2: Table 5. Adjusted multivariable model: Log Odds, RRR and 95% CI
 </ul>
 <p>Both vectors match <code>predict.vgam(fitmlog1, type = &quot;response&quot;)</code>, confirming the manual calculation is correct.</p>
 </section>
+<section id="predicted-probabilities-from-the-final-model" class="level3" data-number="3.9.4">
+<h3 data-number="3.9.4" class="anchored" data-anchor-id="predicted-probabilities-from-the-final-model"><span class="header-section-number">3.9.4</span> Predicted Probabilities from the Final Model</h3>
+<p>Four covariate profiles are constructed to show how the fully adjusted model shifts predicted probabilities across the three method categories. All profiles use age 30, two children, currently working, and good media exposure. Religion and education are varied because they are the two strongest predictors in opposite directions.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>profiles_final <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">wife_age       =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">30</span>, <span class="dv">30</span>, <span class="dv">30</span>),</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">wife_edu_d     =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;low&quot;</span>,  <span class="st">&quot;high&quot;</span>, <span class="st">&quot;low&quot;</span>,  <span class="st">&quot;high&quot;</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;high&quot;</span>)),</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">wife_religion2 =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;non_islam&quot;</span>, <span class="st">&quot;non_islam&quot;</span>, <span class="st">&quot;islam&quot;</span>, <span class="st">&quot;islam&quot;</span>),</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;non_islam&quot;</span>, <span class="st">&quot;islam&quot;</span>)),</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">wife_working2  =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)),</span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">sol_index_d    =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;high&quot;</span>, <span class="st">&quot;low&quot;</span>, <span class="st">&quot;high&quot;</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;high&quot;</span>)),</span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">num_children   =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>),</span>
+<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">media2         =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;good&quot;</span>, <span class="st">&quot;good&quot;</span>, <span class="st">&quot;good&quot;</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;not_good&quot;</span>))</span>
+<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-12"><a href="#cb77-12" aria-hidden="true" tabindex="-1"></a>pred_final <span class="ot">&lt;-</span> <span class="fu">predict</span>(fitmlog4, <span class="at">newdata =</span> profiles_final, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb77-13"><a href="#cb77-13" aria-hidden="true" tabindex="-1"></a>pred_mat   <span class="ot">&lt;-</span> <span class="fu">round</span>(pred_final, <span class="dv">3</span>)</span>
+<span id="cb77-14"><a href="#cb77-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-15"><a href="#cb77-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(</span>
+<span id="cb77-16"><a href="#cb77-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb77-17"><a href="#cb77-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Profile   =</span> <span class="fu">paste0</span>(<span class="st">&quot;Profile &quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),</span>
+<span id="cb77-18"><a href="#cb77-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Education =</span> <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>,  <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>,  <span class="st">&quot;High&quot;</span>),</span>
+<span id="cb77-19"><a href="#cb77-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Religion  =</span> <span class="fu">c</span>(<span class="st">&quot;Non-Islam&quot;</span>, <span class="st">&quot;Non-Islam&quot;</span>, <span class="st">&quot;Islam&quot;</span>, <span class="st">&quot;Islam&quot;</span>),</span>
+<span id="cb77-20"><a href="#cb77-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">SoL       =</span> <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>, <span class="st">&quot;High&quot;</span>)</span>
+<span id="cb77-21"><a href="#cb77-21" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb77-22"><a href="#cb77-22" aria-hidden="true" tabindex="-1"></a>  pred_mat</span>
+<span id="cb77-23"><a href="#cb77-23" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb77-24"><a href="#cb77-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb77-25"><a href="#cb77-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Profile&quot;</span>, <span class="st">&quot;Education&quot;</span>, <span class="st">&quot;Religion&quot;</span>, <span class="st">&quot;Std of Living&quot;</span>,</span>
+<span id="cb77-26"><a href="#cb77-26" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&quot;P(Long-term)&quot;</span>, <span class="st">&quot;P(Short-term)&quot;</span>, <span class="st">&quot;P(No use)&quot;</span>),</span>
+<span id="cb77-27"><a href="#cb77-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption   =</span> <span class="st">&quot;Predicted probabilities from the final adjusted model for four covariate profiles&quot;</span></span>
+<span id="cb77-28"><a href="#cb77-28" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb77-29"><a href="#cb77-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-striped table-hover caption-top table-sm small">
+<caption>Predicted probabilities from the final adjusted model for four covariate profiles</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Profile</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Education</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Religion</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Std of Living</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">P(Long-term)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">P(Short-term)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">P(No use)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Profile 1</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: left;">Non-Islam</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: right;">0.072</td>
+<td style="text-align: right;">0.296</td>
+<td style="text-align: right;">0.632</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Profile 2</td>
+<td style="text-align: left;">High</td>
+<td style="text-align: left;">Non-Islam</td>
+<td style="text-align: left;">High</td>
+<td style="text-align: right;">0.358</td>
+<td style="text-align: right;">0.359</td>
+<td style="text-align: right;">0.283</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Profile 3</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: left;">Islam</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: right;">0.046</td>
+<td style="text-align: right;">0.223</td>
+<td style="text-align: right;">0.731</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Profile 4</td>
+<td style="text-align: left;">High</td>
+<td style="text-align: left;">Islam</td>
+<td style="text-align: left;">High</td>
+<td style="text-align: right;">0.279</td>
+<td style="text-align: right;">0.326</td>
+<td style="text-align: right;">0.395</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Interpretation:</strong> Profile 1 (low education, non-Islamic, low SoL) and Profile 4 (high education, Islamic, high SoL) represent contrasting ends of the covariate space. The difference in P(Long-term) between these two profiles captures how education and standard of living increase uptake while religion reduces it. Profile 3 (low education, Islamic, low SoL) is expected to show the highest P(No use), reflecting all three barriers acting simultaneously. Probabilities within each row sum to 1.0.</p>
 </section>
-<section id="cross-validation-with-nnetmultinom" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="cross-validation-with-nnetmultinom"><span class="header-section-number">3.5</span> Cross-validation with nnet::multinom</h2>
+</section>
+<section id="cross-validation-with-nnetmultinom" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="cross-validation-with-nnetmultinom"><span class="header-section-number">3.10</span> Cross-validation with nnet::multinom</h2>
 <p>Results were cross-validated using <code>nnet::multinom()</code>. As <code>nnet</code> does not report p-values in its summary, p-values were derived from the ratio of each coefficient to its standard error under a normal approximation. Confidence intervals are returned as a three-dimensional array, with one slice per outcome category.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>mlog_nnet <span class="ot">&lt;-</span> <span class="fu">multinom</span>(cmc_nnet <span class="sc">~</span> wife_religion2,</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data  =</span> cmc,</span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">trace =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mlog_nnet)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>mlog_nnet <span class="ot">&lt;-</span> <span class="fu">multinom</span>(cmc_nnet <span class="sc">~</span> wife_religion2,</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data  =</span> cmc,</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">trace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mlog_nnet)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call:
@@ -4519,14 +4897,14 @@ AIC: 3130.673 </code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>z_stat <span class="ot">&lt;-</span> <span class="fu">summary</span>(mlog_nnet)<span class="sc">$</span>coefficients <span class="sc">/</span></span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">summary</span>(mlog_nnet)<span class="sc">$</span>standard.errors</span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>p_val <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(z_stat), <span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">round</span>(p_val, <span class="dv">4</span>),</span>
-<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Table 6. P-values from nnet::multinom, z-test&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>z_stat <span class="ot">&lt;-</span> <span class="fu">summary</span>(mlog_nnet)<span class="sc">$</span>coefficients <span class="sc">/</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">summary</span>(mlog_nnet)<span class="sc">$</span>standard.errors</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>p_val <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(z_stat), <span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">round</span>(p_val, <span class="dv">4</span>),</span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Table 6. P-values from nnet::multinom, z-test&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed caption-top table-sm small">
@@ -4556,16 +4934,16 @@ AIC: 3130.673 </code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>ci_nnet <span class="ot">&lt;-</span> <span class="fu">confint</span>(mlog_nnet, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;=== Long-term vs No-use ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>ci_nnet <span class="ot">&lt;-</span> <span class="fu">confint</span>(mlog_nnet, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;=== Long-term vs No-use ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>=== Long-term vs No-use ===</code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(ci_nnet[,, <span class="st">&quot;long_term&quot;</span>], <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(ci_nnet[,, <span class="st">&quot;long_term&quot;</span>], <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     2.5 % 97.5 %
@@ -4574,7 +4952,7 @@ wife_religion2islam -1.133 -0.430</code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">=== Short-term vs No-use ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">=== Short-term vs No-use ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -4582,7 +4960,7 @@ wife_religion2islam -1.133 -0.430</code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(ci_nnet[,, <span class="st">&quot;short_term&quot;</span>], <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(ci_nnet[,, <span class="st">&quot;short_term&quot;</span>], <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     2.5 % 97.5 %
@@ -4593,21 +4971,21 @@ wife_religion2islam -0.493  0.208</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>mlog_nnet_full <span class="ot">&lt;-</span> <span class="fu">multinom</span>(</span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  cmc_nnet <span class="sc">~</span> wife_age <span class="sc">+</span> wife_edu_d <span class="sc">+</span> wife_religion2 <span class="sc">+</span></span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>             wife_working2 <span class="sc">+</span> sol_index_d <span class="sc">+</span> num_children <span class="sc">+</span> media2,</span>
-<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data  =</span> cmc,</span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">trace =</span> <span class="cn">FALSE</span></span>
-<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;=== Coefficients: VGAM::vglm (fitmlog4) ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>mlog_nnet_full <span class="ot">&lt;-</span> <span class="fu">multinom</span>(</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  cmc_nnet <span class="sc">~</span> wife_age <span class="sc">+</span> wife_edu_d <span class="sc">+</span> wife_religion2 <span class="sc">+</span></span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>             wife_working2 <span class="sc">+</span> sol_index_d <span class="sc">+</span> num_children <span class="sc">+</span> media2,</span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data  =</span> cmc,</span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">trace =</span> <span class="cn">FALSE</span></span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;=== Coefficients: VGAM::vglm (fitmlog4) ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>=== Coefficients: VGAM::vglm (fitmlog4) ===</code></pre>
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">coef</span>(fitmlog4), <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">coef</span>(fitmlog4), <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>        (Intercept):1         (Intercept):2            wife_age:1 
@@ -4625,7 +5003,7 @@ wife_religion2islam:1 wife_religion2islam:2     wife_working2no:1
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">=== Coefficients: nnet::multinom (mlog_nnet_full) ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">=== Coefficients: nnet::multinom (mlog_nnet_full) ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -4633,7 +5011,7 @@ wife_religion2islam:1 wife_religion2islam:2     wife_working2no:1
 </div>
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">coef</span>(mlog_nnet_full), <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">coef</span>(mlog_nnet_full), <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>           (Intercept) wife_age wife_edu_dhigh wife_religion2islam
@@ -4656,10 +5034,11 @@ short_term          0.1311          0.4156       0.3366        -0.6516</code></p
 <p><strong>Wife’s age</strong> showed a stronger inverse effect for short-term use (RRR = 0.90 per year) than long-term (RRR = 0.97), suggesting younger women leaned toward reversible options.</p>
 <p><strong>Media exposure</strong> was significant only for short-term use (RRR = 0.52, p = 0.015), not for long-term (p = 0.068). Mass media channels appear more relevant to short-term method uptake, though the confidence interval for long-term use is wide and that null finding is not definitive.</p>
 <p><strong>Wife’s working status</strong> was not significant for either comparison after adjustment.</p>
+<p>The Religion × Education interaction test (p = 0.8641, not statistically significant) addresses whether education moderates the religion barrier for long-term use. The non-significant result supports interpreting the main effects of religion and education independently, as their combined impact on method choice is consistent with a simple additive pattern on the log-odds scale.</p>
 </section>
 <section id="limitations" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Limitations</h1>
-<p>Several limitations should be noted. First, the data are cross-sectional, so causal inferences cannot be drawn from these findings. Second, contraceptive method was self-reported, which may introduce recall or social desirability bias, particularly for methods that carry religious or cultural sensitivity. Third, the data are from 1987 and specific to Indonesia; findings may not generalise to other countries or to contemporary Indonesian populations where education levels, family planning programmes, and religious practice have changed considerably. Fourth, husband’s education and occupation were available but were not included in the final model; residual confounding from unmeasured partner-level characteristics therefore cannot be excluded.</p>
+<p>Several limitations should be noted. First, the data are cross-sectional, so causal inferences cannot be drawn from these findings. Second, contraceptive method was self-reported, which may introduce recall or social desirability bias, particularly for methods that carry religious or cultural sensitivity. Third, the data are from 1987 and specific to Indonesia, and findings may not generalise to other countries or to contemporary Indonesian populations where education levels, family planning programmes, and religious practice have changed considerably. Fourth, husband’s education and occupation were available but were not included in the final model, and residual confounding from unmeasured partner-level characteristics therefore cannot be excluded.</p>
 </section>
 <section id="references" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> References</h1>

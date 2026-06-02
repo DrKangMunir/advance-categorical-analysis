@@ -67,6 +67,7 @@ library(tidyverse)
 library(gtsummary)
 library(VGAM)
 library(nnet)
+library(car)
 library(knitr)
 library(kableExtra)
 ```
@@ -298,7 +299,7 @@ Coefficients for wife's education and standard of living showed broadly monotone
 
 ### Final Model
 
-> Wife's education and standard of living index are each collapsed to two levels (low vs high) to improve parsimony while preserving the main contrast. This is the model used for final inference and predictions.
+> Wife's education and standard of living index are each collapsed to two levels (low vs high) to improve parsimony while preserving the main contrast. This is the model carried forward for diagnostics, interaction testing, and final inference.
 
 ```{r}
 #| label: model4-fit
@@ -313,7 +314,85 @@ fitmlog4 <- vglm(
 summary(fitmlog4)
 ```
 
-### Model Fit
+## Model Diagnostics
+
+### Multicollinearity Check
+
+> `VGAM::vglm()` does not provide a native VIF function. A proxy ordinary least squares model fitted on the same predictors approximates multicollinearity via `car::vif()`.
+
+```{r}
+#| label: vif-check
+
+mod_lm_vif <- lm(
+  as.numeric(cmc_vgam) ~ wife_age + wife_edu_d + wife_religion2 +
+                          wife_working2 + sol_index_d + num_children + media2,
+  data = cmc
+)
+
+vif_res <- car::vif(mod_lm_vif)
+
+kable(round(vif_res, 3),
+      caption = "Variance Inflation Factors for Final Model Predictors") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE)
+```
+
+For factor predictors, `car::vif()` reports the Generalised VIF (GVIF) and its adjusted form GVIF^(1/(2·Df)), which is directly comparable to the square root of a standard VIF. Values below 2.0 indicate no problematic collinearity. Wife's education, standard of living, and number of children share socioeconomic pathways and mild correlation between them is expected, and the VIF check confirms whether this inflates standard errors to a degree that warrants concern.
+
+## Interaction Analysis
+
+### Religion × Education
+
+The unadjusted analysis showed education had a far larger effect on long-term use than on short-term use (RRR 13.54 vs 2.87 at the highest education level), and religion suppressed long-term use strongly. These divergent patterns motivate an a priori interaction test: highly educated Islamic women may be more willing to adopt long-acting methods than their less-educated counterparts, producing an effect beyond the simple sum of the two main effects. An interaction term `wife_religion2 × wife_edu_d` is added to the final model and compared against the main-effects model via LRT. A significant result (p < 0.05) indicates the interaction improves fit and should be retained for inference.
+
+```{r}
+#| label: interaction-fit
+
+fitmlog_int <- vglm(
+  cmc_vgam ~ wife_age + wife_edu_d * wife_religion2 +
+             wife_working2 + sol_index_d + num_children + media2,
+  multinomial,
+  data = cmc
+)
+
+summary(fitmlog_int)
+```
+
+```{r}
+#| label: interaction-lrt
+
+ll_int      <- as.numeric(logLik(fitmlog_int))
+ll_main     <- as.numeric(logLik(fitmlog4))
+lrt_chi_int <- -2 * (ll_main - ll_int)
+lrt_df_int  <- length(coef(fitmlog_int)) - length(coef(fitmlog4))
+lrt_p_int   <- pchisq(lrt_chi_int, df = lrt_df_int, lower.tail = FALSE)
+
+cat(sprintf("LRT (Religion x Education interaction): chi-sq(%d) = %.3f, p = %.4f\n",
+            lrt_df_int, lrt_chi_int, lrt_p_int))
+```
+
+```{r}
+#| label: interaction-rrr
+
+b_int  <- coef(fitmlog_int)
+ci_int <- confint(fitmlog_int)
+
+res_int <- cbind(b_int, exp(b_int), ci_int, exp(ci_int))
+colnames(res_int) <- c("b", "rrr",
+                        "lower 95% b", "upper 95% b",
+                        "lower 95% rrr", "upper 95% rrr")
+
+int_rows <- grep(".*:.*:", rownames(res_int))
+
+kable(round(res_int[int_rows, ], 3),
+      caption = "Interaction terms: Religion x Education, RRR and 95% CI") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE)
+```
+
+**Interpretation:** The LRT tests whether the Religion × Education interaction terms jointly improve fit ($\chi^2$(`r lrt_df_int`) = `r round(lrt_chi_int, 3)`, p = `r round(lrt_p_int, 4)`). `r if(lrt_p_int < 0.05) { "The interaction is statistically significant. An interaction RRR above 1 in the long-term equation means the education advantage for long-term use is larger among Islamic women than among non-Islamic women, indicating education partially offsets the religion barrier. An interaction RRR below 1 means the education advantage is smaller among Islamic women. The interaction model is preferred over the main-effects model on statistical grounds." } else { "The interaction is not statistically significant, indicating the effect of education on contraceptive method choice does not differ meaningfully by religion in this sample. The main-effects model is retained on parsimony grounds." }`
+
+## Model Fit
 
 ```{r}
 #| label: model-fit
@@ -321,12 +400,10 @@ summary(fitmlog4)
 m_null  <- vglm(cmc_vgam ~ 1, multinomial, data = cmc)
 ll_full <- as.numeric(logLik(fitmlog4))
 ll_null <- as.numeric(logLik(m_null))
-df_full <- attr(logLik(fitmlog4), "df")
-df_null <- attr(logLik(m_null),   "df")
 
 r2_mcf  <- 1 - ll_full / ll_null
 lrt_chi <- -2 * (ll_null - ll_full)
-lrt_df  <- df_full - df_null
+lrt_df  <- length(coef(fitmlog4)) - length(coef(m_null))
 lrt_p   <- pchisq(lrt_chi, df = lrt_df, lower.tail = FALSE)
 
 cat(sprintf("Log-likelihood (null model) = %.2f\n", ll_null))
@@ -336,11 +413,39 @@ cat(sprintf("LRT chi-sq(%d)              = %.2f\n", lrt_df, lrt_chi))
 cat(sprintf("LRT p-value                 = %.6f\n", lrt_p))
 ```
 
-The full model significantly improved fit over the null (intercept-only) model (LRT $\chi^2$(`r lrt_df`) = `r round(lrt_chi, 2)`, p < 0.001). McFadden R² = `r round(r2_mcf, 3)`. In multinomial logistic regression, McFadden values of 0.20–0.40 are considered good fit and values above 0.40 are considered excellent; values below 0.20 indicate that the predictors explain a limited share of the variation in method choice.
+The final model significantly improved fit over the null (intercept-only) model (LRT $\chi^2$(`r lrt_df`) = `r round(lrt_chi, 2)`, p < 0.001). McFadden R² = `r round(r2_mcf, 3)`. In multinomial logistic regression, McFadden values of 0.20–0.40 are considered good fit and values above 0.40 are considered excellent, while values below 0.20 indicate that the predictors explain a limited share of the variation in method choice.
 
-### Estimation
+## Model Comparison
 
-> Log-odds coefficients (`b`) and their exponentiated forms (Relative Risk Ratios, `rrr`) are extracted, combined with 95% confidence intervals, and displayed in a single table. RRR > 1 indicates higher relative odds of that method over no use, and RRR < 1 indicates lower relative odds.
+AIC and BIC are compared across the null model, the full model with four-level education and standard of living, and the final dichotomised model, to confirm that collapsing the four-level factors did not meaningfully sacrifice fit.
+
+```{r}
+#| label: model-comparison
+
+tibble(
+  Model  = c("Null (intercept only)",
+              "Full model (4-level edu and SoL)",
+              "Final model (dichotomised edu and SoL)"),
+  logLik = round(c(as.numeric(logLik(m_null)),
+                   as.numeric(logLik(fitmlog3)),
+                   as.numeric(logLik(fitmlog4))), 2),
+  df     = c(length(coef(m_null)),
+              length(coef(fitmlog3)),
+              length(coef(fitmlog4))),
+  AIC    = round(c(AIC(m_null), AIC(fitmlog3), AIC(fitmlog4)), 1),
+  BIC    = round(c(BIC(m_null), BIC(fitmlog3), BIC(fitmlog4)), 1)
+) %>%
+  kable(caption = "Model Comparison: log-likelihood, AIC and BIC") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+A ΔAIC within approximately 2 units between the full and final models indicates that the parsimony gained from dichotomisation carries no meaningful loss of fit. BIC applies a stronger penalty for model complexity and tends to favour the more parsimonious model.
+
+## Model Results
+
+### Adjusted Odds Ratios
+
+> The table below presents log-odds coefficients and Relative Risk Ratios (RRR) with 95% confidence intervals from the final main-effects model. `r if(lrt_p_int < 0.05) { "The interaction test above identified a significant Religion × Education interaction, and the estimates for education and religion below should be read alongside the interaction term in the Interaction Analysis section." } else { "The interaction test confirmed the main-effects model as the preferred specification, so the estimates below represent the final adjusted results." }` RRR > 1 indicates higher relative odds of that method over no use, and RRR < 1 indicates lower relative odds.
 
 ```{r}
 #| label: tbl-final-results
@@ -364,9 +469,9 @@ kable(round(res_m4, 3),
   pack_rows("Short-term vs No-use", nrow(res_m4) / 2 + 1, nrow(res_m4))
 ```
 
-### Inference
+### Interpretation
 
-> The table above produces two sets of estimates, one per comparison equation. Each predictor's adjusted effect from Table 5 is interpreted below.
+All estimates are adjusted for every other predictor in the model. Two equations are fitted simultaneously: long-term vs no-use and short-term vs no-use. Each RRR describes the relative odds of choosing that method over no use, holding all other predictors constant.
 
 **Long-term vs No-use** (adjusted)
 
@@ -485,6 +590,46 @@ cat("  Sum           =", round(p_noUse_is + p_long_is + p_short_is, 4), "\n")
 
 Both vectors match `predict.vgam(fitmlog1, type = "response")`, confirming the manual calculation is correct.
 
+### Predicted Probabilities from the Final Model
+
+Four covariate profiles are constructed to show how the fully adjusted model shifts predicted probabilities across the three method categories. All profiles use age 30, two children, currently working, and good media exposure. Religion and education are varied because they are the two strongest predictors in opposite directions.
+
+```{r}
+#| label: final-model-profiles
+
+profiles_final <- data.frame(
+  wife_age       = c(30, 30, 30, 30),
+  wife_edu_d     = factor(c("low",  "high", "low",  "high"), levels = c("low", "high")),
+  wife_religion2 = factor(c("non_islam", "non_islam", "islam", "islam"),
+                           levels = c("non_islam", "islam")),
+  wife_working2  = factor(c("yes", "yes", "yes", "yes"), levels = c("yes", "no")),
+  sol_index_d    = factor(c("low", "high", "low", "high"), levels = c("low", "high")),
+  num_children   = c(2, 2, 2, 2),
+  media2         = factor(c("good", "good", "good", "good"), levels = c("good", "not_good"))
+)
+
+pred_final <- predict(fitmlog4, newdata = profiles_final, type = "response")
+pred_mat   <- round(pred_final, 3)
+
+cbind(
+  data.frame(
+    Profile   = paste0("Profile ", 1:4),
+    Education = c("Low",  "High", "Low",  "High"),
+    Religion  = c("Non-Islam", "Non-Islam", "Islam", "Islam"),
+    SoL       = c("Low", "High", "Low", "High")
+  ),
+  pred_mat
+) %>%
+  kable(
+    col.names = c("Profile", "Education", "Religion", "Std of Living",
+                   "P(Long-term)", "P(Short-term)", "P(No use)"),
+    caption   = "Predicted probabilities from the final adjusted model for four covariate profiles"
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+**Interpretation:** Profile 1 (low education, non-Islamic, low SoL) and Profile 4 (high education, Islamic, high SoL) represent contrasting ends of the covariate space. The difference in P(Long-term) between these two profiles captures how education and standard of living increase uptake while religion reduces it. Profile 3 (low education, Islamic, low SoL) is expected to show the highest P(No use), reflecting all three barriers acting simultaneously. Probabilities within each row sum to 1.0.
+
 ## Cross-validation with nnet::multinom
 
 Results were cross-validated using `nnet::multinom()`. As `nnet` does not report p-values in its summary, p-values were derived from the ratio of each coefficient to its standard error under a normal approximation. Confidence intervals are returned as a three-dimensional array, with one slice per outcome category.
@@ -559,9 +704,11 @@ Among 1,473 married non-pregnant Indonesian women in 1987, education was the dom
 
 **Wife's working status** was not significant for either comparison after adjustment.
 
+The Religion × Education interaction test (`r if(exists("lrt_p_int")) { ifelse(lrt_p_int < 0.05, paste0("p = ", round(lrt_p_int, 4), ", statistically significant") , paste0("p = ", round(lrt_p_int, 4), ", not statistically significant")) } else { "see Interaction Analysis section" }`) addresses whether education moderates the religion barrier for long-term use. `r if(exists("lrt_p_int") && lrt_p_int < 0.05) { "The significant interaction indicates that the education advantage for long-term use differs between Islamic and non-Islamic women, meaning the two main effects cannot be interpreted in full isolation from each other." } else if(exists("lrt_p_int") && lrt_p_int >= 0.05) { "The non-significant result supports interpreting the main effects of religion and education independently, as their combined impact on method choice is consistent with a simple additive pattern on the log-odds scale." } else { "" }`
+
 # Limitations
 
-Several limitations should be noted. First, the data are cross-sectional, so causal inferences cannot be drawn from these findings. Second, contraceptive method was self-reported, which may introduce recall or social desirability bias, particularly for methods that carry religious or cultural sensitivity. Third, the data are from 1987 and specific to Indonesia; findings may not generalise to other countries or to contemporary Indonesian populations where education levels, family planning programmes, and religious practice have changed considerably. Fourth, husband's education and occupation were available but were not included in the final model; residual confounding from unmeasured partner-level characteristics therefore cannot be excluded.
+Several limitations should be noted. First, the data are cross-sectional, so causal inferences cannot be drawn from these findings. Second, contraceptive method was self-reported, which may introduce recall or social desirability bias, particularly for methods that carry religious or cultural sensitivity. Third, the data are from 1987 and specific to Indonesia, and findings may not generalise to other countries or to contemporary Indonesian populations where education levels, family planning programmes, and religious practice have changed considerably. Fourth, husband's education and occupation were available but were not included in the final model, and residual confounding from unmeasured partner-level characteristics therefore cannot be excluded.
 
 # References
 
